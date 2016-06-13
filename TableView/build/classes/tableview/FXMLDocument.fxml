@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="701.0" prefWidth="932.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="tableview.FXMLDocumentController">
+   <children>
+      <HBox layoutX="47.0" layoutY="58.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <ListView fx:id="itemListView" prefHeight="671.0" prefWidth="301.0" />
+            <TableView fx:id="itemTableView" prefHeight="673.0" prefWidth="662.0">
+              <columns>
+                <TableColumn fx:id="codeTable" minWidth="0.0" prefWidth="106.0" text="ItemCode" />
+                <TableColumn fx:id="nameTable" prefWidth="144.0" text="ItemName" />
+                  <TableColumn fx:id="categoryTable" prefWidth="99.0" text="Category" />
+                  <TableColumn fx:id="descriptionTable" prefWidth="200.0" text="Description" />
+                  <TableColumn fx:id="priceTable" minWidth="0.0" prefWidth="112.0" text="Price" />
+              </columns>
+            </TableView>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

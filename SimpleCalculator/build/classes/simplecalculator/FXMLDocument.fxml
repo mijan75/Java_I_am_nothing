@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="233.0" prefWidth="341.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simplecalculator.FXMLDocumentController">
+   <children>
+      <Label layoutX="27.0" layoutY="28.0" text="Number 1" />
+      <Label layoutX="27.0" layoutY="73.0" text="Number 2" />
+      <Label layoutX="27.0" layoutY="117.0" text="Result" />
+      <TextField fx:id="Number1field" layoutX="156.0" layoutY="23.0" promptText="Enter a Number" />
+      <TextField fx:id="Number2field" layoutX="156.0" layoutY="68.0" promptText="Enter a Number" />
+      <TextField fx:id="Resultfield" layoutX="156.0" layoutY="112.0" promptText="Your Result" />
+      <Button layoutX="68.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleSubstractAction" text="Substract" />
+      <Button layoutX="156.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleMultiplicationAction" text="Multiplication" />
+      <Button layoutX="14.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleAddAction" text="Add" />
+      <Button layoutX="271.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleDivisionAction" text="Divsion" />
+   </children>
+</AnchorPane>

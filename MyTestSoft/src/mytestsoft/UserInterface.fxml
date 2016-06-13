@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="232.0" prefWidth="328.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytestsoft.UserInterfaceController">
+   <children>
+      <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" layoutX="90.0" layoutY="14.0" text="Label" />
+      <Label layoutX="21.0" layoutY="52.0" text="See The All User" />
+      <Button layoutX="201.0" layoutY="47.0" mnemonicParsing="false" onAction="#hadleAllUser" text="Click Here" />
+      <Label layoutX="21.0" layoutY="106.0" text="Start Chating With Friends" />
+      <Button layoutX="201.0" layoutY="101.0" mnemonicParsing="false" onAction="#handleStartChating" text="Start" />
+      <Label layoutX="21.0" layoutY="158.0" text="See your Profile" />
+      <Button layoutX="201.0" layoutY="153.0" mnemonicParsing="false" onAction="#handleProfile" text="Click Here" />
+   </children>
+</AnchorPane>

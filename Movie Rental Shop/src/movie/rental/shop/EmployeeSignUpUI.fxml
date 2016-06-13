@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="445.0" prefWidth="464.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="movie.rental.shop.EmployeeSignUpUIController">
+   <children>
+      <StackPane layoutY="6.0" />
+      <GridPane layoutX="4.0" layoutY="63.0" prefHeight="357.0" prefWidth="468.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.0" minWidth="10.0" prefWidth="151.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="306.0" minWidth="10.0" prefWidth="242.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Employee ID" />
+            <Label text="Employee Name" GridPane.rowIndex="1" />
+            <Label text="Employee Address" GridPane.rowIndex="2" />
+            <Label text="Employee Phone" GridPane.rowIndex="3" />
+            <Label text="Employee Hire Date" GridPane.rowIndex="4" />
+            <Label text="Employee Password" GridPane.rowIndex="5" />
+            <Label text="Store Information " GridPane.rowIndex="6" />
+            <Label text="Supervisor Information" GridPane.rowIndex="7" />
+            <TextField fx:id="employID" GridPane.columnIndex="1" />
+            <TextField fx:id="employName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextArea fx:id="employeeAddress" prefHeight="48.0" prefWidth="246.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="employeePhone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <DatePicker fx:id="employeeHireDate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <PasswordField fx:id="employeePassword" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button mnemonicParsing="false" onAction="#storeInformation" text="Click here for add Store Information" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Button mnemonicParsing="false" onAction="#supervisorInformation" text="Click here for add Supervisor Information" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Button mnemonicParsing="false" onAction="#signUP" text="Sign Up !!" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Button mnemonicParsing="false" onAction="#handleBackAction" text="Back" GridPane.rowIndex="8" />
+         </children>
+      </GridPane>
+      <Label fx:id="welconeNote" layoutX="118.0" layoutY="4.0" text="Label" />
+   </children>
+</AnchorPane>
