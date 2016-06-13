@@ -1,0 +1,8 @@
+Toyota
+Corolla
+1300
+5
+Toyota
+Platz
+1500
+6
