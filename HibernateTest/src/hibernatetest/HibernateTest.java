@@ -20,15 +20,21 @@ public class HibernateTest {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Session session = null;
+        Student student = new Student (1,"Mijanur Rahaman",3.25);
+        Address address1 = new Address("Home","Home","Home","Home");
+        Address address2 = new Address("Office","Office","Office","Office");
         
-        try {
-            session = Singleton.getFactory().openSession();
-        }catch (Exception e){
-            session.getTransaction().rollback();
-        }finally{
-            session.close();
-        }
+        student.setHomeAddress(address1);
+        student.setOfficeAddress(address2);
+        
+        SessionFactory factory = new Configuration().configure().buildSessionFactory();
+        Session session = factory.openSession();
+        session.beginTransaction();
+        session.save(student);
+        session.getTransaction().commit();
+        session.close();
+        
+        
     }
     
 }

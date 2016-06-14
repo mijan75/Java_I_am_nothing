@@ -5,6 +5,7 @@
  */
 package hibernatetest;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -13,28 +14,57 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class Address {
+    @Column (name = "Home")
+    private String home;
+    @Column (name = "Street")
     private String street;
-    private String house ;
+    @Column (name = "PostalCode")
+    private String postalCode;
+    @Column (name = "Pin_Code")
+    private String pinCode;
 
     public Address() {
     }
 
-    public Address(String street, String house) {
+    public Address(String home, String street, String postalCode, String pinCode) {
+        this.home = home;
         this.street = street;
-        this.house = house;
+        this.postalCode = postalCode;
+        this.pinCode = pinCode;
+    }
+    
+    
+
+    public String getHome() {
+        return home;
     }
 
     public String getStreet() {
         return street;
     }
 
-    public String getHouse() {
-        return house;
+    public String getPostalCode() {
+        return postalCode;
     }
 
-    @Override
-    public String toString() {
-        return "Address{" + "street=" + street + ", house=" + house + '}';
+    public String getPinCode() {
+        return pinCode;
+    }
+
+    public void setHome(String home) {
+        this.home = home;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public void setPinCode(String pinCode) {
+        this.pinCode = pinCode;
     }
     
     

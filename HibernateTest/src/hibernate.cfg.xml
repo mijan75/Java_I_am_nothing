@@ -10,6 +10,5 @@
     <property name="hibernate.hbm2ddl.auto">create</property>
     <mapping class="hibernatetest.Student"/>
     <mapping class="hibernatetest.Address"/>
-    <mapping class="hibernatetest.Course"/>
   </session-factory>
 </hibernate-configuration>
