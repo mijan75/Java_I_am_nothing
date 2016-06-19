@@ -5,6 +5,7 @@
  */
 package hibernate.saving.pkgclass.pkg1.pkg5;
 
+import java.util.ArrayList;
 import java.util.Date;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,6 +22,7 @@ public class HibernateSavingClass15 {
      */
     public static void main(String[] args) {
         Student student = new Student("1","Mijanur Rahaman",3.25,new Date(),"Mijan is a good boy");
+        
         
         SessionFactory  factory = new Configuration().configure().buildSessionFactory();
         Session session = factory.openSession();
