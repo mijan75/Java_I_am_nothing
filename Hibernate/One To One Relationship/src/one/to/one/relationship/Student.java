@@ -26,7 +26,7 @@ public class Student {
     String id;
     double cgpa;
     //@OneToOne
-    //OntToMany
+    //@OneToMany
     @ManyToMany (mappedBy="student")
     Collection <Address> address = new ArrayList<>();
 
