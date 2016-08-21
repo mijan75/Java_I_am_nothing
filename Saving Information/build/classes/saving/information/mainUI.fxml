@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="462.0" prefWidth="513.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="saving.information.MainUIController">
+   <children>
+      <ComboBox fx:id="ComboBox" layoutX="20.0" layoutY="50.0" prefWidth="150.0" />
+      <TextArea fx:id="textArea" layoutX="159.0" layoutY="166.0" prefHeight="246.0" prefWidth="341.0" />
+      <Button layoutX="435.0" layoutY="425.0" mnemonicParsing="false" onAction="#submit" text="Submit" />
+      <Label layoutX="20.0" layoutY="24.0" text="Choose Your option from below" />
+      <Label fx:id="lavel1" layoutX="20.0" layoutY="90.0" text="Download Your Selected Item : " />
+      <Label fx:id="lavel2" layoutX="20.0" layoutY="122.0" text="Enter Your Selected Item Below :" />
+      <Button layoutX="306.0" layoutY="85.0" mnemonicParsing="false" onAction="#handleDownload" text="Download" />
+   </children>
+</AnchorPane>
