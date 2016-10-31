@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="520.0" prefWidth="545.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="databasedemogui.FXMLDocumentController">
+   <children>
+      <ListView fx:id="listview" layoutX="67.0" prefHeight="100.0" prefWidth="545.0" AnchorPane.bottomAnchor="420.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <TableView fx:id="tableview" layoutX="57.0" layoutY="173.0" prefHeight="268.0" prefWidth="412.0">
+        <columns>
+          <TableColumn fx:id="idColumn" prefWidth="110.0" text="Id" />
+          <TableColumn fx:id="namecolumn" prefWidth="184.0" text="Name" />
+            <TableColumn fx:id="balancecolumn" prefWidth="117.0" text="Balance" />
+        </columns>
+      </TableView>
+      <ComboBox fx:id="cbox" layoutX="142.0" layoutY="116.0" prefWidth="150.0" />
+      <DatePicker fx:id="datePicker" layoutX="333.0" layoutY="116.0" onAction="#handledateAction" />
+   </children>
+</AnchorPane>
