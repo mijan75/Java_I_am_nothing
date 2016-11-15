@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.media.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="431.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="mediaview.FXMLDocumentController">
+   <children>
+      <MediaView fx:id="mediaView" fitHeight="340.0" fitWidth="500.0" />
+      <Button layoutX="440.0" layoutY="347.0" mnemonicParsing="false" onAction="#handlePlayAction" text="Play" />
+   </children>
+</AnchorPane>
