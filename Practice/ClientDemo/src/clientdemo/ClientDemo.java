@@ -34,8 +34,12 @@ public class ClientDemo {
             out.write(name.getBytes());
             out.flush();
             
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            ClientDemoThread clientDemoThread = new ClientDemoThread(socket);
+            clientDemoThread.start();
             
+            
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            System.out.printf("Start Typing from here\n");
             while(true){
                 String message = reader.readLine();
                 out.write(message.getBytes());

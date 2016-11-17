@@ -38,21 +38,21 @@ public class ServerDemoThread extends Thread{
             in = socket.getInputStream();
             byte[] message = new byte[1000];
             SimpleDateFormat  formatter = new SimpleDateFormat("h:mm a");
-            int l = in.read(message);
-            String name = new String(message).substring(0, l);
-            serverDemo.broadcast(name + " logged in",socket);
+            in.read(message);
+            String name = new String(message).trim();
+            serverDemo.broadcast(name + " is online",socket);
             while(true){
                int length = in.read(message);
-               if(length>=0){
-                   Date data = new Date();
+               if(length>0){
+                    Date data = new Date();
                     System.out.printf("%s sent : %s %s\n",name,new String(message).substring(0, length),formatter.format(data));
-                    String outputmessage = String.format("%s",new String(message).substring(0, length));
+                    String outputmessage = String.format("%s sent : %s %s",name,new String(message).trim(),formatter.format(data));
                     serverDemo.broadcast(outputmessage,socket);
                }
                else{
                    if(socket != null){
-                       serverDemo.broadcast(name + " logged out",socket);
                        serverDemo.logOut(socket);
+                       serverDemo.broadcast(name + " is offline",socket);
                        break;
                    }
                }

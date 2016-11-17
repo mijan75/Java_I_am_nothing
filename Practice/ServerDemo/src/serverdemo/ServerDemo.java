@@ -19,12 +19,14 @@ import java.util.logging.Logger;
  */
 public class ServerDemo {
     private ArrayList<Socket> socketList;
+    
     public ServerDemo() {
         socketList = new ArrayList<>();
         int portNubmer = 9876;
         
         try {
             ServerSocket serverSocket = new ServerSocket(portNubmer);
+            System.out.println("Server is running on port : " + portNubmer);
             while(true){
                 Socket socket = serverSocket.accept();
                 socketList.add(socket);
@@ -45,14 +47,14 @@ public class ServerDemo {
     }
     
     public void broadcast(String message , Socket socket){
-        System.out.printf("Broadcast %s\n",message);
-        
+        System.out.println("The number of socket is : "+socketList.size());
+        System.out.printf("Broadcast : %s\n",message);
         for(int i=0; i<socketList.size(); i++){
             Socket s = socketList.get(i);
             if(s.equals(socket))
                 continue;
             try {
-                OutputStream out = socket.getOutputStream();
+                OutputStream out = s.getOutputStream();
                 out.write(message.getBytes());
                 out.flush();
             } catch (IOException ex) {
@@ -67,7 +69,8 @@ public class ServerDemo {
             Socket s = socketList.get(i);
             
             if(s.equals(socket))
-                socketList.remove(s);
+                socketList.remove(i);
         }
+        System.out.println("The number of socket is : "+socketList.size());
     }
 }

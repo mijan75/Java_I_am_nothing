@@ -33,11 +33,10 @@ public class ClientDemoThread extends Thread{
             in = socket.getInputStream();
             byte[] message = new byte[1000];
             while(true){
-                
                 int length = in.read(message);
                 if(length<0)
                     break;
-                System.out.printf("%s",new String(message));
+                System.out.printf("%s\n",new String(message).trim());
             }
         } catch (IOException ex) {
             Logger.getLogger(ClientDemoThread.class.getName()).log(Level.SEVERE, null, ex);
