@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<head th:replace="/home :: head">
+    <!-- Latest compiled and minified CSS -->
+
+
+    <!--<meta charset="UTF-8">-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <!--&lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">-->
+
+    <!--&lt;!&ndash; jQuery library &ndash;&gt;-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+
+    <!--&lt;!&ndash; Popper JS &ndash;&gt;-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>-->
+
+    <!--&lt;!&ndash; Latest compiled JavaScript &ndash;&gt;-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>-->
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">-->
+
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+<script>
+    $(document).ready(function(c) {
+        $('.alert').on('click', function(c){
+            $('.moda').fadeOut('slow', function(c){
+                $('.moda').remove();
+            });
+        });
+    });
+</script>
+
+
+
+</head>
+<body>
+<div th:replace="/home :: header">
+
+</div>
+
+<div style="margin-top: 80px;" class="container" >
+
+
+        <div class="card border-info mb-3">
+            <div class="card-header alert alert-primary">
+                <h3 class="text-center">Add New User</h3>
+            </div>
+            <div class="card-body">
+                <form style="width: 700px; padding-left: 150px; margin-bottom: 20px; padding-bottom: 50px; " th:action="@{/user/save}" th:object="${user}" method="post">
+
+                    <div id="loginModal" class="moda text-center"  style="width: 500px; padding-left: 50px;" >
+                        <div >
+                      <p class="moda text-center"  style="width: 500px;"  th:if="${message}" th:text="${message}"  th:class="${'alert ' + alertClass}">X</p>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" th:field="*{name}" class="form-control" id="name" th:required="1">
+                        <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="'error'">Enter  Name</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text"  th:field="*{username}" class="form-control" id="username" th:required="1">
+                        <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:class="'error'">Enter  Username</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password"  th:field="*{password}" class="form-control" id="password" th:required="1">
+                        <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:class="'error'">Enter  Password</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number:</label>
+                        <input type="text" th:field="*{phoneNumber}"  class="form-control" id="phoneNumber" th:required="1">
+                        <label th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" th:class="'error'">Enter Phone Number</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" th:field="*{email}"  class="form-control" id="email" th:required="1">
+                        <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:class="'error'">Enter Email</label>
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <label for="role">Role(select one)</label>:
+                        <select th:field="*{role}" class="form-control" id="role" th:required="1">
+                            <option sec:authorize="hasAnyRole('ROLE_DEVELOPER')"  th:value="ROLE_ADMIN">ADMIN</option>
+                            <option sec:authorize="hasAnyRole('ROLE_ADMIN')"   th:value="ROLE_USER">USER</option>
+
+                        </select>
+                    </div>
+
+                    <!--<div class="form-group">-->
+                    <!--<label for="id">User List(select one)</label>:-->
+                    <!--<select th:field="*{user.id}" class="form-control" id="id" th:required="1">-->
+                    <!--&lt;!&ndash;<option sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')"  th:value="ROLE_ADMIN">ADMIN</option>&ndash;&gt;-->
+                    <!--<option th:each="user : ${userslist}"  th:value="${user.id}" th:text="${user.name}">USER</option>-->
+                    <!--</select>-->
+                    <!--</div>-->
+
+                    <button type="submit" class="btn btn-outline-primary">Submit</button>
+                    <a th:href="@{/user/userlist}" type="button" class="btn btn-outline-primary">Back</a>
+                </form>
+            </div>
+        </div>
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+</body>
+</html>

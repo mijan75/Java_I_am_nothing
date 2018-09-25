@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<head th:replace="/navbar :: navbarhead">
+
+
+    <script>
+        $(document).ready(function(c) {
+            $('.alert').on('click', function(c){
+                $('.moda').fadeOut('slow', function(c){
+                    $('.moda').remove();
+                });
+            });
+        });
+    </script>
+
+</head>
+<body>
+
+<div th:replace="/navbar :: navbar">
+
+</div>
+<div class="row">
+<div class="col-md-1"></div>
+<div class="col-md-10">
+    <div class="panel panel-primary">
+        <h2 style="padding-top: 30px;" class="text-center panel-success" name="company" th:each="company : ${companyList}"
+            th:value="${company.company_id}" th:text="${company.company_name}"></h2>
+
+        <img th:each="company : ${companyList}"  th:src="${'/company/' + company.company_id}" style="margin-top: -70px; width: 100px; height: 100px; border-radius: 25%;">
+        <b th:text="${execInfo.now.time}"  style="margin-left: 590px" ></b>
+        <div class="period">
+            <h4 style="float: right; margin-top: -30px; margin-right: 100px;">Cuurent Period</h4>
+            <div class="da" style="margin-top: -40px; padding-bottom: 50px;">
+                <div  class="date" style="float: right; margin-right: 50px;" th:each="company : ${companyList}">
+                    <p>to</p>
+                    <p  style="float: right; padding-right: 20px; padding-left: 20px; margin-top: -30px;" th:text="${company.enddate}"></p>
+
+                </div>
+
+                <div  style="float: right;" class="date" th:each="company : ${companyList}">
+                    <p  style="float: right; padding-right: 10px;" th:text="${company.startdate}"></p>
+
+                </div>
+            </div>
+
+        </div>
+
+        <h3 class="panel-heading text-center">Item List</h3>
+        <div class="well">
+            <a style="color: white;" class="panel-title btn btn-info" th:href="@{'/navbar/'+${companyId}+'/createItem'}">Create Item</a>
+            <a style="color: white;" class="panel-title btn btn-info" th:href="@{'/navbar/'+${companyId}+'/download'}">Download</a>
+            <input type="hidden" th:value="${companyId}" name="companyId">
+        </div>
+        <table class="table table-striped">
+
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th width="25%">Item Name</th>
+                <th width="15%">Under Group Name</th>
+                <th width="10%">Unit Name</th>
+                <th width="10%">Quantity</th>
+                <th width="10%">Rate Per</th>
+
+                <th width="15%">Total Price</th>
+                <!--<th>Username</th>-->
+                <!--<th>Created Time</th>-->
+                <th width="15%" style="padding-left: 30px;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="userslist" type=""*/-->
+            <tr th:each="items: ${itemsList}">
+                <td th:text="${items.getId()}"></td>
+                <td th:text="${items.getItemName()}"></td>
+                <td th:text="${items.getStockGroups().getStockGroupName()}"></td>
+                <td th:text="${items.getUnit().getSymbolName()}"></td>
+                <td th:text="${items.getQuantity()}"></td>
+                <td th:text="${items.getRate()}"></td>
+                <td th:text="${items.getTotal()}"></td>
+
+
+                <td>
+                    <a sec:authorize="hasAnyRole('ROLE_USER')" th:href="@{'/navbar/'+${companyId}+'/item/edit/' + ${items.getId()}}"  class="btn btn-info" type="button">Edit</a>
+                    <!--<a sec:authorize="hasAnyRole('ROLE_USER')" th:href="@{'/navbar/' + ${company.getCompany_id()}}" class="btn btn-info">Open</a>-->
+                    <a sec:authorize="hasAnyRole('ROLE_USER')" th:href="@{'/navbar/'+${companyId}+'/item/delete/' + ${items.getId()}}" class="btn btn-danger">Delete</a>
+                </td>
+                <td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="col-md-1"></div>
+</div>
+
+<script th:replace="/navbar :: script">
+
+</script>
+
+
+</body>
+</html>

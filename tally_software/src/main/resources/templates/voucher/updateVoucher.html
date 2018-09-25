@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<head th:replace="/navbar :: navbarhead">
+
+
+    <script>
+        $(document).ready(function(c) {
+            $('.alert').on('click', function(c){
+                $('.moda').fadeOut('slow', function(c){
+                    $('.moda').remove();
+                });
+            });
+        });
+    </script>
+
+</head>
+<body>
+<div th:replace="/navbar :: navbar">
+
+</div>
+
+<div class="container">
+    <div class="panel panel-primary">
+
+        <h3 class="panel-heading text-center">Group Update</h3>
+        <div class="well">
+            <a class="panel-title btn btn-info" th:href="@{'/navbar/'+${companyId}+'/yourvoucherlists'}">Your Voucher List</a>
+            <a class="panel-title btn btn-info" th:href="@{'/navbar/'+${companyId}+'/voucher/list'}">Voucher List</a>
+        </div>
+        <form style="width: 700px; padding-left: 150px; margin-bottom: 20px; padding-bottom: 50px; " th:action="${'/navbar/'+companyId+'/updateVoucher/' +  voucher.getId()}" th:object="${voucher}" method="post" >
+
+            <input type="hidden" th:field="*{company}" name="company" class="form-control" readonly>
+            <div class="form-group">
+                <label>Voucher Id:</label>
+                <input readonly type="text" th:field="*{id}" class="form-control" id="id" th:required="1">
+                <label th:if="${#fields.hasErrors('id')}" th:errors="*{id}" th:class="'error'"> Voucher Id</label>
+
+            </div>
+            <div class="form-group">
+                <label>Voucher Name:</label>
+                <input type="text" th:field="*{voucherName}" class="form-control" id="voucherName" th:required="1">
+                <label th:if="${#fields.hasErrors('voucherName')}" th:errors="*{voucherName}" th:class="'error'">Enter Voucher Name</label>
+
+            </div>
+
+            <div class="form-group">
+                <label for="devVoucher">Under:</label>
+                <select name="devVoucher" th:field="*{devVoucher}" id="devVoucher" class="form-control" required>
+                    <option th:each="voucher : ${devVoucherList}" th:value="${voucher.v_id}" th:text="${voucher.voucherName}"></option>
+                </select>
+            </div>
+
+
+            <!--<div class="form-group">-->
+            <!--<label for="role">Role:</label>-->
+            <!--<input type="text" th:value="${#request.userPrincipal.principal.role}"   class="form-control" id="role" th:required="1">-->
+
+            <!--</div>-->
+
+
+
+
+            <!--<div class="form-group">-->
+            <!--<label for="role">Role(select one)</label>:-->
+            <!--<select th:field="*{role}" class="form-control" id="role" th:required="1">-->
+            <!--<option  th:value="None">None</option>-->
+            <!--<option sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')"  th:value="ROLE_ADMIN">ADMIN</option>-->
+            <!--<option sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')"   th:value="ROLE_USER">USER</option>-->
+
+            <!--</select>-->
+            <!--</div>-->
+            <button   class="btn btn-info">Update</button>
+            <a type="button" class="btn btn-default" th:href="@{'/navbar/'+${companyId}+'/yourvoucherlists'}">Back</a>
+
+        </form>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+
+
+<script th:replace="/navbar :: script">
+
+</script>
+
+
+
+
+
+
+</body>
+</html>

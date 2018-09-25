@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<head th:replace="/home :: head">
+    <!-- Latest compiled and minified CSS -->
+
+
+    <!--<meta charset="UTF-8">-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+
+
+</head>
+<body>
+<div th:replace="/home :: header">
+
+</div>
+
+<div style="margin-top: 80px;" class="container" >
+
+
+    <div class="card border-info mb-3">
+        <div class="card-header alert alert-primary">
+            <h3 class="text-center">Add New User</h3>
+        </div>
+        <div class="card-body">
+
+            <form  style="width: 700px; padding-left: 150px; margin-bottom: 20px; padding-bottom: 50px; "  name="add_name" id="add_name">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dynamic_field">
+                        <tr>
+                            <td><input type="text" name="name[]" placeholder="Enter your Name" class="form-control name_list" /></td>
+                            <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td>
+                        </tr>
+                    </table>
+                    <input type="button" name="submit" id="submit" class="btn btn-info" value="Submit" />
+                </div>
+            </form>
+            <!--<div class="form-group">-->
+            <!--<label for="name">Name:</label>-->
+            <!--<input type="text" th:field="*{name}" class="form-control" id="name" th:required="1">-->
+            <!--<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="'error'">Enter  Name</label>-->
+            <!--</div>-->
+
+
+
+
+            <!--<button type="submit" class="btn btn-outline-primary">Submit</button>-->
+            <!--<a th:href="@{/user/userlist}" type="button" class="btn btn-outline-primary">Back</a>-->
+
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        var i=1;
+        $('#add').click(function(){
+            i++;
+            $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="name[]" placeholder="Enter your Name" class="form-control name_list" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+        });
+        $(document).on('click', '.btn_remove', function(){
+            var button_id = $(this).attr("id");
+            $('#row'+button_id+'').remove();
+        });
+        $('#submit').click(function(){
+            $.ajax({
+                url:"name.php",
+                method:"POST",
+                data:$('#add_name').serialize(),
+                success:function(data)
+                {
+                    alert(data);
+                    $('#add_name')[0].reset();
+                }
+            });
+        });
+    });
+</script>
+
+
+</body>
+</html>

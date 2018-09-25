@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head th:replace="/navbar :: navbarhead">
+
+
+    <script>
+        $(document).ready(function (c) {
+            $('.alert').on('click', function (c) {
+                $('.moda').fadeOut('slow', function (c) {
+                    $('.moda').remove();
+                });
+            });
+        });
+    </script>
+
+    <style>
+
+    </style>
+</head>
+<body>
+<div th:replace="/navbar :: navbar">
+
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="panel panel-primary">
+
+
+
+            <h2 style="padding-top: 30px;" class="text-center" name="company" th:each="company : ${companyList}"
+                                                      th:value="${company.company_id}" th:text="${company.company_name}"></h2>
+
+                <!--<a class="panel-title btn btn-info" th:href="@{'/navbar/'+${companyId}+'/journalList'}">Jounal List</a>-->
+            <img th:each="company : ${companyList}"  th:src="${'/company/' + company.company_id}" style="margin-top: -70px; width: 100px; height: 100px; border-radius: 25%;">
+            <b th:text="${execInfo.now.time}"  style="margin-left: 590px" ></b>
+            <div class="period">
+                <h4 style="float: right; margin-top: -30px; margin-right: 100px;">Cuurent Period</h4>
+                <div class="da" style="margin-top: -40px; padding-bottom: 50px;">
+                    <div  class="date" style="float: right; margin-right: 50px;" th:each="company : ${companyList}">
+                        <p>to</p>
+                        <p  style="float: right; padding-right: 20px; padding-left: 20px; margin-top: -30px;" th:text="${company.enddate}"></p>
+
+                    </div>
+
+                    <div  style="float: right;" class="date" th:each="company : ${companyList}">
+                        <p  style="float: right; padding-right: 10px;" th:text="${company.startdate}"></p>
+
+                    </div>
+                </div>
+
+            </div>
+
+                <h3 class="panel-heading text-center">Voucher Create</h3>
+
+
+            <!--<form th:action="${'/navbar/'+companyId+'/journal/save'}" method="post" th:object="${journal}" style="width: 500px; margin-left: 300px; margin-bottom: 50px;">-->
+            <!--<input type="hidden" th:value="${companyId}" name="companyId">-->
+            <!--<div class="form-group">-->
+            <!--<label for="datepicker">Date:</label>-->
+            <!--<input type="date" class="form-control" name="created_time" id="datepicker" required/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label for="devVoucher">Voucher:</label>-->
+            <!--<select name="devVoucher" id="devVoucher" class="form-control" required>-->
+            <!--<option th:each="voucher : ${devVoucherList}" th:value="${voucher.v_id}" th:text="${voucher.voucherName}"></option>-->
+            <!--</select>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label for="ledger">Dr.</label>-->
+            <!--<select name="ledger" id="ledger" class="form-control" required>-->
+            <!--<option th:each="ledger : ${ledgerList}" th:value="${ledger.ledger_id}" th:text="${ledger.ledgerName}"></option>-->
+            <!--</select>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label for="debit">Debit Ammount:</label>-->
+            <!--<input type="number" class="form-control" name="debit" id="debit" onkeyup="sync()" required>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label for="ledger">Cr.</label>-->
+            <!--<select name="ledger" id="ledger1" class="form-control" required>-->
+            <!--<option th:each="ledger : ${ledgerList}" th:value="${ledger.ledger_id}" th:text="${ledger.ledgerName}"></option>-->
+            <!--</select>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label for="credit">Credit Ammount:</label>-->
+            <!--<input readonly type="number" class="form-control" name="credit" id="credit"  required>-->
+            <!--</div>-->
+
+            <!--<hr style="color: black;" height="10px;">-->
+            <!--<div class="form-group">-->
+            <!--<label for="narration">Narration:</label>-->
+            <!--<textarea type="text"  placeholder="Not Mandatory" class="form-control" name="narration" id="narration" ></textarea>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label for="total">Total:</label>-->
+            <!--<input readonly type="number"  class="form-control" name="total" id="total" >-->
+
+
+            <!--</div>-->
+
+
+            <!--<button type="submit" class="btn btn-primary">Submit</button>-->
+            <!--</form>-->
+
+
+            <div>
+                <div class="form-group">
+                    <span class="inlineinput">
+                         <label style="padding-left: 10px;">Voucher:</label>
+                        <select id="name" name="voucherName" class="form-control "
+                                style="display: inline; width: 15%; margin-left: 80px;"
+                                onchange="swap(this.value, 'change', 'change1')">
+
+                            <option>Choose Voucher</option>
+
+                            <option value="Contra">Contra</option>
+                            <option value="Journal">Journal</option>
+                            <option value="Payment">Payment</option>
+
+
+                            <option value="Purchase">Purchase</option>
+                            <option value="Receipt">Receipt</option>
+                            <option value="Sales">Sales</option>
+
+                        </select>
+                    </span>
+
+
+                    <!--<span class="inlineinput  " style="margin-right: 80px; ">-->
+                    <!--<label for="datepicker" style="margin-right: 50px;" >Ref:</label>-->
+                    <!--<input  type="number" style="display: inline; width: 180px ; padding-top: 5px;" class="form-control" name="ref" id="ref1" required>-->
+                    <!--</span>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <!--<span class="inlineinput" >-->
+                <!--<label for="change" style="margin-left: 10px;"  >Ledger:</label>-->
+
+                <!--<input  type="text" style="display: inline; width: 15% ; padding-top: 5px; margin-left: 30px;" class="form-control" name="voucherName" id="change" readonly>-->
+                <!--</span>-->
+
+
+                <!--<span class="inlineinput pull-right " style="margin-right: 80px; ">-->
+                <!--<label for="datepicker" style="margin-right: 50px;" >Ref:</label>-->
+                <!--<input  type="number" style="display: inline; width: 180px ; padding-top: 5px;" class="form-control" name="ref" id="ref" required>-->
+                <!--</span>-->
+
+
+            </div>
+            <form th:action="${'/navbar/'+companyId+'/journal/save'}" method="post" th:object="${journal}">
+                <input type="hidden" th:value="${companyId}" name="companyId">
+
+
+                <div class="Contra box">
+                    <span class="inlineinput pull-right " style="margin-right: 80px; ">
+                        <label for="ref">Date:</label>
+                        <input type="date" class="form-control" name="created_time" id="datepicker"
+                               style="display: inline; width: 180px ; margin-left: 50px; margin-bottom: 10px;" required>
+                    </span>
+                    <!--<span class="inlineinput  " style="margin-bottom: 10px;">-->
+                    <!--<label for="voucher" style="margin-left: 10px;" >Voucher:</label>-->
+                    <!--<input  type="text" readonly style="display: inline; width: 240px ; padding-top: 5px; margin-left: 80px;" class="form-control" name="voucher" id="voucher" required>-->
+                    <!--</span>-->
+                    <!--<span class="inlineinput pull-right " style="margin-right: 80px; ">-->
+                    <!--<label for="ref"  >Ref No.:</label>-->
+                    <!--<input type="number" class="form-control" name="ref" id="ref" style="display: inline; width: 180px ; margin-left: 50px;" required>-->
+                    <!--</span>-->
+                    <span class="inlineinpu pull-right">
+                        <label for="change1" style="margin-right: 30px;">Ledger:</label>
+
+                        <input type="text"
+                               style="display: inline;  padding-top: 5px; width: 180px ; margin-right: 80px;"
+                               class="form-control" name="voucherName" value="Contra" id="change1" readonly>
+
+                    </span>
+
+                    <span class="inlineinput  " style="margin-bottom: 10px;">
+                        <label for="datepicker" style="margin-left: 10px;">Reference No:</label>
+                        <input type="number"
+                               style="display: inline; width: 240px ; padding-top: 5px; margin-left: 40px;"
+                               class="form-control" name="ref" id="ref" required>
+                    </span>
+                    <table style="margin-top: 20px;" id="keywords"
+                           class="table table-striped table-bordered table-hover">
+
+                        <thead>
+                        <tr style="color:black;">
+
+                            <th width="50%" style="text-align: center;">Particulars</th>
+                            <th width="20%" style="text-align: center;">Amount</th>
+                            <!--<th width="20%">Credit</th>-->
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <!--<td rowspan="2" style="padding-top:50px;" value="date"> <input type="date" class="form-control" name="created_time" id="datepicker" required/></td>-->
+                            <td><label class="pull-left" style="padding-top: 8px;">Dr.</label>
+                                <div class="col-xs-10">
+                                    <select  name="debitLedger" style="margin-left: 50px;" id="debitLedger"
+                                            class="form-control" required>
+                                        <option value="" disabled selected>Choose your value</option>
+                                        <option th:each="ledger : ${ledgerListContra}" th:value="${ledger.ledger_id}"
+                                                th:text="${ledger.ledgerName}"></option>
+                                    </select>
+                                </div>
+                            </td>
+
+                            <td>
+                                <input type="number" class="form-control" name="debit" id="debit" onkeyup="sync()"
+                                       required>
+                                <input type="hidden" readonly class="form-control" name="debitId" id="debitId"
+                                       />
+                            </td>
+
+                            <!--<td>-->
+                            <!--<input type="number" class="form-control" name="debit" id="credit"  onkeyup="sync()" required>-->
+                            <!--</td>-->
+
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+                                <label class="pull-left" style="padding-top: 8px;" >Cr.</label>
+                                <div class="col-xs-10">
+                                    <select name="creditLedger" style="margin-left: 50px;" id="creditLedger"
+                                            class="form-control" required>
+                                        <option value="" disabled selected>Choose Your Value</option>
+                                        <option th:each="ledger1 : ${ledgerListContra1}" th:value="${ledger1.ledger_id}"
+                                                th:text="${ledger1.ledgerName}"></option>
+                                    </select>
+                                </div>
+                            </td>
+
+                            <td>
+                                <input type="number" class="form-control" name="credit" id="credit" onkeyup="sync()"
+                                       required>
+                                <input type="hidden" readonly class="form-control" name="creditId" id="creditId"
+                                >
+                            </td>
+                            <!--<td>-->
+                            <!--<input type="number" class="form-control" name="debit" id="credit2" onkeyup="sync()" required>-->
+
+                            <!--</td>-->
+
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                <label class="pull-left " style="margin-top: 25px;" for="narration">Narration:</label>
+                                <div class="col-xs-10">
+                                    <textarea type="text" placeholder="Not Mandatory" class="form-control"
+                                              name="narration" id="narration">
+
+                                    </textarea>
+                                </div>
+                            </td>
+
+                            <td>
+
+                                <input readonly type="number" placeholder="Credit"
+                                       style="margin-top:15px; width: 48%; float: left;" class="form-control"
+                                       name="total" id="deb" required>
+                                <input readonly placeholder="Debit" type="number"
+                                       style="margin-top:15px; width: 50%; float: right;" class="form-control"
+                                       name="total" id="cre" required>
+                            </td>
+
+
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-info form-control"
+                            style="margin-bottom: 50px; margin-left: 0px;">Submit
+                    </button>
+
+
+                </div>
+            </form>
+
+            <form th:action="${'/navbar/'+companyId+'/journal/save'}" method="post" th:object="${journal}">
+                <input type="hidden" th:value="${companyId}" name="companyId">
+
+
+                <div class="Payment box">
+                   <span class="inlineinput pull-right " style="margin-right: 80px; ">
+                        <label for="ref">Date:</label>
+                        <input type="date" class="form-control" name="created_time" id="datepicker"
+                               style="display: inline; width: 180px ; margin-left: 50px; margin-bottom: 10px;" required>
+                    </span>
+                    <!--<span class="inlineinput  " style="margin-bottom: 10px;">-->
+                    <!--<label for="voucher" style="margin-left: 10px;" >Voucher:</label>-->
+                    <!--<input  type="text" readonly style="display: inline; width: 240px ; padding-top: 5px; margin-left: 80px;" class="form-control" name="voucher" id="voucher" required>-->
+                    <!--</span>-->
+                    <!--<span class="inlineinput pull-right " style="margin-right: 80px; ">-->
+                    <!--<label for="ref"  >Ref No.:</label>-->
+                    <!--<input type="number" class="form-control" name="ref" id="ref" style="display: inline; width: 180px ; margin-left: 50px;" required>-->
+                    <!--</span>-->
+                    <span class="inlineinpu pull-right">
+                        <label for="change1" style="margin-right: 30px;">Ledger:</label>
+
+                        <input type="text"
+                               style="display: inline;  padding-top: 5px; width: 180px ; margin-right: 80px;"
+                               class="form-control" name="voucherName" value="Payment" id="change1" readonly>
+
+                    </span>
+
+                    <span class="inlineinput  " style="margin-bottom: 10px;">
+                        <label for="datepicker" style="margin-left: 10px;">Reference No:</label>
+                        <input type="number"
+                               style="display: inline; width: 240px ; padding-top: 5px; margin-left: 40px;"
+                               class="form-control" name="ref" id="ref" required>
+                    </span>
+                    <table style="margin-top: 20px;" id="keywords"
+                           class="table table-striped table-bordered table-hover">
+
+                        <thead>
+                        <tr style="color:black;">
+
+                            <th width="50%" style="text-align: center;">Particulars</th>
+                            <th width="20%" style="text-align: center;">Amount</th>
+                            <!--<th width="20%">Credit</th>-->
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <!--<td rowspan="2" style="padding-top:50px;" value="date"> <input type="date" class="form-control" name="created_time" id="datepicker" required/></td>-->
+                            <td><label class="pull-left" style="padding-top: 8px;" >Dr.</label>
+                                <div class="col-xs-10">
+                                    <select name="debitLedger" style="margin-left: 50px;" id="debitLedger1"
+                                            class="form-control" required>
+                                        <option value="" disabled selected>Choose your value</option>
+                                        <option th:each="ledger : ${ledgerListPayment}" th:value="${ledger.ledger_id}"
+                                                th:text="${ledger.ledgerName}"></option>
+                                    </select>
+                                </div>
+                            </td>
+
+                            <td>
+                                <input type="number" class="form-control" name="debit" id="debit1" onkeyup="sync1()"
+                                       required>
+                                <input type="hidden" class="form-control" name="debitId" id="debitId11"
+                                       required>
+                            </td>
+
+                            <!--<td>-->
+                            <!--<input type="number" class="form-control" name="debit" id="credit"  onkeyup="sync()" required>-->
+                            <!--</td>-->
+
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+                                <label class="pull-left" style="padding-top: 8px;" >Cr.</label>
+                                <div class="col-xs-10">
+                                    <select name="creditLedger" style="margin-left: 50px;" id="creditLedger1"
+                                            class="form-control" required>
+                                        <option value="" disabled selected>Choose your value</option>
+
+                                        <option th:each="ledger : ${ledgerListPayment}" th:value="${ledger.ledger_id}"
+                                                th:text="${ledger.ledgerName}"></option>
+                                    </select>
+                                </div>
+                            </td>
+
+                            <td>
+                                <input type="number" class="form-control" name="credit" id="credit1" onkeyup="sync1()"
+                                       required>
+                                <input type="hidden" class="form-control" name="creditId" id="creditId11"
+                                       required>
+                            </td>
+                            <!--<td>-->
+                            <!--<input type="number" class="form-control" name="debit" id="credit2" onkeyup="sync()" required>-->
+
+                            <!--</td>-->
+
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                <label class="pull-left " style="margin-top: 25px;" for="narration">Narration:</label>
+                                <div class="col-xs-10">
+                                    <textarea type="text" placeholder="Not Mandatory" class="form-control"
+                                              name="narration" id="narration">
+
+                                    </textarea>
+                                </div>
+                            </td>
+
+                            <td>
+
+                                <input readonly type="number" placeholder="Credit"
+                                       style="margin-top:15px; width: 48%; float: left;" class="form-control"
+                                       name="total" id="deb1" required>
+                                <input readonly placeholder="Debit" type="number"
+                                       style="margin-top:15px; width: 50%; float: right;" class="form-control"
+                                       name="total" id="cre1" required>
+                            </td>
+
+
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-info form-control"
+                            style="margin-bottom: 50px; margin-left: 0px;">Submit
+                    </button>
+
+
+                </div>
+            </form>
+
+            <form th:action="${'/navbar/'+companyId+'/journal/save'}" method="post" th:object="${journal}">
+                <input type="hidden" th:value="${companyId}" name="companyId">
+
+
+                <div class="Journal box">
+                    <span class="inlineinput pull-right " style="margin-right: 80px; ">
+                        <label for="ref">Date:</label>
+                        <input type="date" class="form-control" name="created_time" id="datepicker"
+                               style="display: inline; width: 180px ; margin-left: 50px; margin-bottom: 10px;" required>
+                    </span>
+                    <!--<span class="inlineinput  " style="margin-bottom: 10px;">-->
+                    <!--<label for="voucher" style="margin-left: 10px;" >Voucher:</label>-->
+                    <!--<input  type="text" readonly style="display: inline; width: 240px ; padding-top: 5px; margin-left: 80px;" class="form-control" name="voucher" id="voucher" required>-->
+                    <!--</span>-->
+                    <!--<span class="inlineinput pull-right " style="margin-right: 80px; ">-->
+                    <!--<label for="ref"  >Ref No.:</label>-->
+                    <!--<input type="number" class="form-control" name="ref" id="ref" style="display: inline; width: 180px ; margin-left: 50px;" required>-->
+                    <!--</span>-->
+                    <span class="inlineinpu pull-right">
+                        <label for="change1" style="margin-right: 30px;">Ledger:</label>
+
+                        <input type="text"
+                               style="display: inline;  padding-top: 5px; width: 180px ; margin-right: 80px;"
+                               class="form-control" name="voucherName" value="Journal" id="change1" readonly>
+
+                    </span>
+
+                    <span class="inlineinput  " style="margin-bottom: 10px;">
+                        <label for="datepicker" style="margin-left: 10px;">Reference No:</label>
+                        <input type="number"
+                               style="display: inline; width: 240px ; padding-top: 5px; margin-left: 40px;"
+                               class="form-control" name="ref" id="ref" required>
+                    </span>
+                    <table style="margin-top: 20px;" id="keywords"
+                           class="table table-striped table-bordered table-hover">
+
+                        <thead>
+                        <tr style="color:black;">
+
+                            <th width="50%" style="text-align: center;">Particulars</th>
+                            <th width="20%" style="text-align: center;">Amount</th>
+                            <!--<th width="20%">Credit</th>-->
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <!--<td rowspan="2" style="padding-top:50px;" value="date"> <input type="date" class="form-control" name="created_time" id="datepicker" required/></td>-->
+                            <td><label class="pull-left" style="padding-top: 8px;">Dr.</label>
+                                <div class="col-xs-10">
+                                    <select name="debitLedger" style="margin-left: 50px;" id="debitLedger2"
+                                            class="form-control" required>
+                                        <option value="" disabled selected>Choose your value</option>
+                                        <option th:each="ledger : ${ledgerListJournal}" th:value="${ledger.ledger_id}"
+                                                th:text="${ledger.ledgerName}"></option>
+                                    </select>
+                                </div>
+                            </td>
+
+                            <td>
+                                <input type="number" class="form-control" name="debit" id="debit2" onkeyup="sync2()"
+                                       required>
+                                <input type="hidden" class="form-control" name="debitId" id="debitId12"
+                                       required>
+                            </td>
+
+                            <!--<td>-->
+                            <!--<input type="number" class="form-control" name="debit" id="credit"  onkeyup="sync()" required>-->
+                            <!--</td>-->
+
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+                                <label class="pull-left" style="padding-top: 8px;" >Cr.</label>
+                                <div class="col-xs-10">
+                                    <select name="creditLedger" style="margin-left: 50px;" id="creditLedger2"
+                                            class="form-control" required>
+                                        <option value="" disabled selected>Choose your value</option>
+                                        <option th:each="ledger : ${ledgerListJournal}" th:value="${ledger.ledger_id}"
+                                                th:text="${ledger.ledgerName}"></option>
+                                    </select>
+                                </div>
+                            </td>
+
+                            <td>
+                                <input type="number" class="form-control" name="credit" id="credit2" onkeyup="sync2()"
+                                       required>
+                                <input type="hidden" class="form-control" name="creditId" id="creditId12"
+                                       required>
+                            </td>
+                            <!--<td>-->
+                            <!--<input type="number" class="form-control" name="debit" id="credit2" onkeyup="sync()" required>-->
+
+                            <!--</td>-->
+
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                <label class="pull-left " style="margin-top: 25px;" for="narration">Narration:</label>
+                                <div class="col-xs-10">
+                                    <textarea type="text" placeholder="Not Mandatory" class="form-control"
+                                              name="narration" id="narration">
+
+                                    </textarea>
+                                </div>
+                            </td>
+
+                            <td>
+
+                                <input readonly type="number" placeholder="Credit"
+                                       style="margin-top:15px; width: 48%; float: left;" class="form-control"
+                                       name="total" id="deb2" required>
+                                <input readonly placeholder="Debit" type="number"
+                                       style="margin-top:15px; width: 50%; float: right;" class="form-control"
+                                       name="total" id="cre2" required>
+                            </td>
+
+
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-info form-control"
+                            style="margin-bottom: 50px; margin-left: 0px;">Submit
+                    </button>
+
+
+                </div>
+            </form>
+            <form th:action="${'/navbar/'+companyId+'/journal/save'}" method="post" th:object="${journal}">
+                <input type="hidden" th:value="${companyId}" name="companyId">
+
+
+                <div class="Receipt box">
+                     <span class="inlineinput pull-right " style="margin-right: 80px; ">
+                        <label for="ref">Date:</label>
+                        <input type="date" class="form-control" name="created_time" id="datepicker"
+                               style="display: inline; width: 180px ; margin-left: 50px; margin-bottom: 10px;" required>
+                    </span>
+
+                    <!--<span class="inlineinput  " style="margin-bottom: 10px;">-->
+                    <!--<label for="voucher" style="margin-left: 10px;" >Voucher:</label>-->
+                    <!--<input  type="text" readonly style="display: inline; width: 240px ; padding-top: 5px; margin-left: 80px;" class="form-control" name="voucher" id="voucher" required>-->
+                    <!--</span>-->
+                    <!--<span class="inlineinput pull-right " style="margin-right: 80px; ">-->
+                    <!--<label for="ref"  >Ref No.:</label>-->
+                    <!--<input type="number" class="form-control" name="ref" id="ref" style="display: inline; width: 180px ; margin-left: 50px;" required>-->
+                    <!--</span>-->
+                    <span class="inlineinpu pull-right">
+                        <label for="change1" style="margin-right: 30px;">Ledger:</label>
+
+                        <input type="text"
+                               style="display: inline;  padding-top: 5px; width: 180px ; margin-right: 80px;"
+                               class="form-control" name="voucherName" value="Receipt" id="change1" readonly>
+
+                    </span>
+
+                    <span class="inlineinput  " style="margin-bottom: 10px;">
+                        <label for="datepicker" style="margin-left: 10px;">Reference No:</label>
+                        <input type="number"
+                               style="display: inline; width: 240px ; padding-top: 5px; margin-left: 40px;"
+                               class="form-control" name="ref" id="ref" required>
+                    </span>
+                    <table style="margin-top: 20px;" id="keywords"
+                           class="table table-striped table-bordered table-hover">
+
+                        <thead>
+                        <tr style="color:black;">
+
+                            <th width="50%" style="text-align: center;">Particulars</th>
+                            <th width="20%" style="text-align: center;">Amount</th>
+                            <!--<th width="20%">Credit</th>-->
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <!--<td rowspan="2" style="padding-top:50px;" value="date"> <input type="date" class="form-control" name="created_time" id="datepicker" required/></td>-->
+                            <td><label class="pull-left" style="padding-top: 8px;" >Dr.</label>
+                                <div class="col-xs-10">
+                                    <select name="debitLedger" style="margin-left: 50px;" id="debitLedger3"
+                                            class="form-control" required>
+                                        <option value="" disabled selected>Chose your value</option>
+                                        <option th:each="ledger : ${ledgerListContra}" th:value="${ledger.ledger_id}"
+                                                th:text="${ledger.ledgerName}"></option>
+                                    </select>
+                                </div>
+                            </td>
+
+                            <td>
+                                <input type="number" class="form-control" name="debit" id="debit3" onkeyup="sync3()"
+                                       required>
+                                <input type="hidden" class="form-control" name="debitId" id="debitId13"
+                                       required>
+                            </td>
+
+                            <!--<td>-->
+                            <!--<input type="number" class="form-control" name="debit" id="credit"  onkeyup="sync()" required>-->
+                            <!--</td>-->
+
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+                                <label class="pull-left" style="padding-top: 8px;" >Cr.</label>
+                                <div class="col-xs-10">
+                                    <select name="creditLedger" style="margin-left: 50px;" id="creditLedger3"
+                                            class="form-control" required>
+                                        <option value="" disabled selected>Chose your value</option>
+                                        <option th:each="ledger : ${ledgerListReceipt}" th:value="${ledger.ledger_id}"
+                                                th:text="${ledger.ledgerName}"></option>
+                                    </select>
+                                </div>
+                            </td>
+
+                            <td>
+                                <input type="number" class="form-control" name="credit" id="credit3" onkeyup="sync3()"
+                                       required>
+                                <input type="hidden" class="form-control" name="creditId" id="creditId13"
+                                       required>
+                            </td>
+                            <!--<td>-->
+                            <!--<input type="number" class="form-control" name="debit" id="credit2" onkeyup="sync()" required>-->
+
+                            <!--</td>-->
+
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                <label class="pull-left " style="margin-top: 25px;" for="narration">Narration:</label>
+                                <div class="col-xs-10">
+                                    <textarea type="text" placeholder="Not Mandatory" class="form-control"
+                                              name="narration" id="narration">
+
+                                    </textarea>
+                                </div>
+                            </td>
+
+                            <td>
+
+                                <input readonly type="number" placeholder="Credit"
+                                       style="margin-top:15px; width: 48%; float: left;" class="form-control"
+                                       name="total" id="deb3" required>
+                                <input readonly placeholder="Debit" type="number"
+                                       style="margin-top:15px; width: 50%; float: right;" class="form-control"
+                                       name="total" id="cre3" required>
+                            </td>
+
+
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-info form-control"
+                            style="margin-bottom: 50px; margin-left: 0px;">Submit
+                    </button>
+
+
+                </div>
+            </form>
+            <form th:action="${'/navbar/'+companyId+'/journal/save'}" method="post" th:object="${journal}">
+                <input type="hidden" th:value="${companyId}" name="companyId">
+
+
+                <div class="Purchase box">
+                  <span class="inlineinput pull-right " style="margin-right: 80px; ">
+                        <label for="ref">Date:</label>
+                        <input type="date" class="form-control" name="created_time" id="datepicker"
+                               style="display: inline; width: 180px ; margin-left: 50px; margin-bottom: 10px;" required>
+                    </span>
+
+                    <!--<label  style="margin-left: 10px;"  >Ledger:</label>-->
+
+                    <!--<select name="ledger" id="ledger5" class="form-control" required>-->
+                    <!--<option value="Purchase A/c" >Purchase A/c</option>-->
+                    <!--<option value="Sales A/c" >Sales A/c</option>-->
+                    <!--</select>-->
+                    <!--<span class="inlineinput" >-->
+                    <!--<label for="change" style="margin-left: 10px;"  >Ledger:</label>-->
+
+                    <!--<input  type="text" style="display: inline; width: 15% ; padding-top: 5px; margin-left: 30px;" class="form-control" name="voucherName" id="change" readonly>-->
+                    <!--</span>-->
+                    <span class="inlineinpu">
+                        <label for="change1" style="margin-left: 10px;">Purchase Ledger:</label>
+
+                        <input type="text" style="display: inline; width: 15% ; padding-top: 5px; margin-left: 20px;"
+                               class="form-control" name="voucherName" value="Purchase A/c" id="change1" readonly>
+                        <!--<input type="text" class="form-control" name="debitId" value="Purchase Account"/>-->
+                        <!--<select style="display: inline; width: 15% ; padding-top: 5px; margin-left: 30px;" name="ledger" id="ledger5" class="form-control" required>-->
+                        <!--<<option value="purchase A/c" >Purchase A/c</option>-->
+                        <!--<option value="sales A/c" >Sales A/c</option>-->
+                        <!--</select>-->
+                    </span>
+
+                    <span class="inlineinput  pull-right" style="margin-bottom: 10px; margin-right: 60px">
+                        <label for="invoice" style="margin-right: 10px;">Invoice No.</label>
+                        <input type="number"
+                               style="display: inline; width: 180px ; padding-top: 5px; margin-right: 20px;"
+                               class="form-control" name="invoice" id="invoice" required>
+                    </span>
+
+                    <table style="margin-top: 20px" id="keywords1"
+                           class="table table-striped table-bordered table-hover">
+
+                        <thead>
+                        <tr style="color:black;">
+                            <th width="25%">Name of Item</th>
+                            <th width="20%">Party A/c Name</th>
+                            <th width="15%">Quantity</th>
+                            <th width="15%">Rate</th>
+                            <th width="10%">Per</th>
+                            <th width="20%">Total Amount</th>
+
+
+                            <!--<th>Created By</th>-->
+
+                            <!--<th>Created Time</th>-->
+                            <!--<th sec:authorize="hasAnyRole('ROLE_DEVELOPER')" style="padding-left: 30px;">Action</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--/*@thymesVar id="userslist" type=""*/-->
+
+
+                        <tr>
+                            <td><select name="stockItems" id="ledger4" class="form-control" required>
+                                <option th:each="item : ${stockItemsList}" th:value="${item.id}"
+                                        th:text="${item.itemName}"></option>
+                            </select>
+                            </td>
+
+                            <td><select name="creditLedger" id="creditLedger4" class="form-control" required>
+                                <option value="" disabled selected>Choose your value</option>
+                                <option th:each="ledger : ${ledgerListPurchase}" th:value="${ledger.ledger_id}"
+                                        th:text="${ledger.ledgerName}"></option>
+                            </select>
+                            </td>
+
+                            <td>
+                                <input type="number" class="form-control" name="quantity" id="quan" oninput="cal()"
+                                       required>
+                            </td>
+
+                            <td>
+                                <input type="number" class="form-control" name="rate" id="price" oninput="cal()"
+                                       required>
+                            </td>
+
+                            <td><select name="unit" id="ledger3" class="form-control" required>
+                                <option th:each="unit : ${unitList}" th:value="${unit.id}"
+                                        th:text="${unit.symbolName}"></option>
+                            </select></td>
+                            <td>
+                                <input type="number" class="form-control" name="total" id="amount"  required>
+
+                            </td>
+
+                            <input type="hidden" name="debitId" id="ledger10" class="form-control" th:each="ledger : ${ledgerListPurchase1}" th:value="${ledger.ledgerName}"
+                            />
+                            <input type="hidden" name="debitLedger" id="ledger10" class="form-control" th:each="ledger : ${ledgerListPurchase1}" th:value="${ledger.ledger_id}"
+                            />
+
+                            <input type="hidden" name="creditId" id="creditId14" class="form-control"
+                           />
+
+
+                        </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    <input type="hidden"  class="form-control" name="debit" id="amount1"  required>
+
+                                </td>
+                                <td>
+                                    <input type="hidden"  class="form-control" name="credit" id="amount2" required>
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <label class="pull-left " style="margin-top: 25px;" for="narration">Narration:</label>
+                    <div class="col-xs-5" style="margin-bottom: 10px;">
+                    <textarea type="text" placeholder="Not Mandatory" class="form-control"
+                    name="narration" id="narration">
+
+                    </textarea>
+                    </div>
+                    <button type="submit" class="btn btn-info form-control"
+                            style="margin-bottom: 50px; margin-left: 0px;">Submit
+                    </button>
+
+                </div>
+            </form>
+
+
+            <form th:action="${'/navbar/'+companyId+'/journal/save'}" method="post" th:object="${journal}">
+                <input type="hidden" th:value="${companyId}" name="companyId">
+
+
+                <div class="Sales box">
+                    <span class="inlineinput pull-right " style="margin-right: 80px; ">
+                        <label for="ref">Date:</label>
+                        <input type="date" class="form-control" name="created_time" id="datepicker"
+                               style="display: inline; width: 180px ; margin-left: 50px; margin-bottom: 10px;" required>
+                    </span>
+                    <span class="inlineinpu">
+                        <label for="change1" style="margin-left: 10px;">Sales Ledger:</label>
+
+                        <input type="text" style="display: inline; width: 15% ; padding-top: 5px; margin-left: 45px;"
+                               class="form-control" name="voucherName" value="Sales A/c" id="change1" readonly>
+
+                    </span>
+
+                    <!--<select name="creditLedger" id="creditLedger" class="form-control" required>-->
+                        <!--<option th:each="ledger : ${ledgerListSales1}" th:value="${ledger.ledgerName}"-->
+                                <!--th:text="${ledger.ledgerName}"></option>-->
+                    <!--</select>-->
+
+
+                    <span class="inlineinput  pull-right" style="margin-bottom: 10px; margin-right: 60px">
+                        <label for="refer" style="margin-right: 35px;">Ref No.</label>
+                        <input type="number"
+                               style="display: inline; width: 180px ; padding-top: 5px; margin-right: 20px;"
+                               class="form-control" name="ref" id="refer" required>
+
+                        </span>
+                    <!--<label  style="margin-left: 10px;"  >Ledger:</label>-->
+
+                    <!--<select name="ledger" id="ledger5" class="form-control" required>-->
+                    <!--<option value="Purchase A/c" >Purchase A/c</option>-->
+                    <!--<option value="Sales A/c" >Sales A/c</option>-->
+                    <!--</select>-->
+                    <!--<span class="inlineinpu" >-->
+                    <!--<label for="change1" style="margin-left: 10px;"  >Ledger:</label>-->
+
+                    <!--<input  type="text" style="display: inline; width: 15% ; padding-top: 5px; margin-left: 30px;" class="form-control" name="voucherName" id="change1" readonly>-->
+                    <!--</span>-->
+
+                    <table style="margin-top: 20px" id="keyword" class="table table-striped table-bordered table-hover">
+
+                        <thead>
+                        <tr style="color:black;">
+                            <th width="25%">Name of Item</th>
+                            <th width="20%">Party A/c Name</th>
+                            <th width="15%">Quantity</th>
+                            <th width="15%">Rate</th>
+                            <th width="10%">Per</th>
+                            <th width="20%">Total Amount</th>
+
+
+                            <!--<th>Created By</th>-->
+
+                            <!--<th>Created Time</th>-->
+                            <!--<th sec:authorize="hasAnyRole('ROLE_DEVELOPER')" style="padding-left: 30px;">Action</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--/*@thymesVar id="userslist" type=""*/-->
+                        <tr>
+                            <td><select name="stockItems" id="ledger0" class="form-control" required>
+                                <option th:each="item : ${stockItemsList}" th:value="${item.id}"
+                                        th:text="${item.itemName}"></option>
+                            </select>
+                            </td>
+                            <td><select name="debitLedger" id="debitLedger5" class="form-control" required>
+                                <option value="" disabled selected>Choose your value</option>
+                                <option th:each="ledger : ${ledgerListSales}" th:value="${ledger.ledger_id}"
+                                        th:text="${ledger.ledgerName}"></option>
+                            </select>
+                            </td>
+
+                            <td>
+                                <input type="number" class="form-control" name="quantity" id="quantity"
+                                       oninput="calculate()" required>
+                            </td>
+
+                            <td>
+                                <input type="number" class="form-control" name="rate" id="rate" oninput="calculate()"
+                                       required>
+                            </td>
+
+                            <td><select name="unit" id="ledger6" class="form-control" required>
+                                <option th:each="unit : ${unitList}" th:value="${unit.id}"
+                                        th:text="${unit.symbolName}"></option>
+                            </select></td>
+                            <td>
+                                <input type="number" class="form-control" name="total" id="total" required>
+
+                            </td>
+
+                        </tr>
+                        <tr>
+
+                            <td>
+                                <input type="hidden"  class="form-control" name="debit" id="amount3"  required>
+
+                            </td>
+                            <td>
+                                <input type="hidden"  class="form-control" name="credit" id="amount4" required>
+
+                            </td>
+                            <input type="hidden" name="creditId" id="ledge10" class="form-control" th:each="ledger : ${ledgerListSales1}" th:value="${ledger.ledgerName}"
+                            />
+                            <input type="hidden" name="creditLedger" id="ledge17" class="form-control" th:each="ledger : ${ledgerListSales1}" th:value="${ledger.ledger_id}"
+                            />
+                            <input type="hidden" name="debitId" id="debitId15" class="form-control"
+                            />
+                        </tr>
+
+
+
+                        </tbody>
+                    </table>
+
+                    <label class="pull-left " style="margin-top: 25px;" for="narration">Narration:</label>
+                    <div class="col-xs-5" style="margin-bottom: 10px;">
+                    <textarea type="text" placeholder="Not Mandatory" class="form-control"
+                              name="narration" id="narration">
+
+                    </textarea>
+                    </div>
+                    <button type="submit" class="btn btn-info form-control"
+                            style="margin-bottom: 50px; margin-left: 0px;">Submit
+                    </button>
+                </div>
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class="col-md-1"></div>
+</div>
+<!--</div>-->
+
+
+<script th:replace="/navbar :: script">
+
+</script>
+<script>
+    function cal() {
+        var myInput1 = document.getElementById('quan').value;
+        var myInput2 = document.getElementById('price').value;
+        var amount1 = document.getElementById('amount');
+        var amount2 = document.getElementById('amount1');
+        var amount3 = document.getElementById('amount2');
+        var finalResult = myInput1 * myInput2;
+        amount.value = finalResult;
+        amount2.value = finalResult;
+        amount3.value = finalResult;
+
+    }
+</script>
+
+<script>
+
+    // Contra Voucher Debit Id
+    $(document).ready(function() {
+
+        $("#debitLedger option").filter(function() {
+            return $(this).text() == $("#debitId").text();
+        }).attr('selected', true);
+
+        $("#debitLedger").live("change", function() {
+
+            $("#debitId").val($(this).find("option:selected").attr("text"));
+        });
+    });
+
+    // Contra Voucher Credit Id
+    $(document).ready(function() {
+
+        $("#creditLedger option").filter(function() {
+            return $(this).text() == $("#creditId").text();
+        }).attr('selected', true);
+
+        $("#creditLedger").live("change", function() {
+
+            $("#creditId").val($(this).find("option:selected").attr("text"));
+        });
+    });
+
+    // Payment Voucher Debit Id
+    $(document).ready(function() {
+
+        $("#debitLedger1 option").filter(function() {
+            return $(this).text() == $("#debitId11").text();
+        }).attr('selected', true);
+
+        $("#debitLedger1").live("change", function() {
+
+            $("#debitId11").val($(this).find("option:selected").attr("text"));
+        });
+    });
+
+    // Payment Voucher Credit Id
+    $(document).ready(function() {
+
+        $("#creditLedger1 option").filter(function() {
+            return $(this).text() == $("#creditId11").text();
+        }).attr('selected', true);
+
+        $("#creditLedger1").live("change", function() {
+
+            $("#creditId11").val($(this).find("option:selected").attr("text"));
+        });
+    });
+
+    // Journal Voucher Debit Id
+    $(document).ready(function() {
+
+        $("#debitLedger2 option").filter(function() {
+            return $(this).text() == $("#debitId12").text();
+        }).attr('selected', true);
+
+        $("#debitLedger2").live("change", function() {
+
+            $("#debitId12").val($(this).find("option:selected").attr("text"));
+        });
+    });
+
+    // Journal Voucher Credit Id
+    $(document).ready(function() {
+
+        $("#creditLedger2 option").filter(function() {
+            return $(this).text() == $("#creditId12").text();
+        }).attr('selected', true);
+
+        $("#creditLedger2").live("change", function() {
+
+            $("#creditId12").val($(this).find("option:selected").attr("text"));
+        });
+    });
+
+
+    // Receipt Voucher Debit Id
+    $(document).ready(function() {
+
+        $("#debitLedger3 option").filter(function() {
+            return $(this).text() == $("#debitId13").text();
+        }).attr('selected', true);
+
+        $("#debitLedger3").live("change", function() {
+
+            $("#debitId13").val($(this).find("option:selected").attr("text"));
+        });
+    });
+
+    // Receipt Voucher Credit Id
+    $(document).ready(function() {
+
+        $("#creditLedger3 option").filter(function() {
+            return $(this).text() == $("#creditId13").text();
+        }).attr('selected', true);
+
+        $("#creditLedger3").live("change", function() {
+
+            $("#creditId13").val($(this).find("option:selected").attr("text"));
+        });
+    });
+
+    // Purchase Voucher Credit Id
+    $(document).ready(function() {
+
+        $("#creditLedger4 option").filter(function() {
+            return $(this).text() == $("#creditId14").text();
+        }).attr('selected', true);
+
+        $("#creditLedger4").live("change", function() {
+
+            $("#creditId14").val($(this).find("option:selected").attr("text"));
+        });
+    });
+
+
+    // Receipt Voucher Debit Id
+    $(document).ready(function() {
+
+        $("#debitLedger5 option").filter(function() {
+            return $(this).text() == $("#debitId15").text();
+        }).attr('selected', true);
+
+        $("#debitLedger5").live("change", function() {
+
+            $("#debitId15").val($(this).find("option:selected").attr("text"));
+        });
+    });
+
+
+    function calculate() {
+        var myBox1 = document.getElementById('quantity').value;
+        var myBox2 = document.getElementById('rate').value;
+        var result = document.getElementById('total');
+        var result1 = document.getElementById('amount3');
+
+        var result2 = document.getElementById('amount4');
+
+        var myResult = myBox1 * myBox2;
+        total.value = myResult;
+        result1.value = myResult;
+        result2.value = myResult;
+
+
+    }
+</script>
+<script type="text/javascript">
+
+
+    function sync() {
+        var n1 = document.getElementById('debit');
+        var n2 = document.getElementById('credit');
+        var n3 = document.getElementById('deb');
+        var n4 = document.getElementById('cre');
+
+        n2.value = n1.value;
+        n3.value = n2.value;
+        n4.value = n3.value;
+    }
+
+    function syncLedger() {
+        var n1 = document.getElementById('amount');
+        var n2 = document.getElementById('amount1');
+        var n3 = document.getElementById('amount2');
+        // var n4 = document.getElementById('cre');
+
+        n2.value = n1.value;
+        n3.value = n2.value;
+        // n4.value = n3.value;
+    }
+
+
+
+    function sync1() {
+        var n1 = document.getElementById('debit1');
+        var n2 = document.getElementById('credit1');
+        var n3 = document.getElementById('deb1');
+        var n4 = document.getElementById('cre1');
+
+        n2.value = n1.value;
+        n3.value = n2.value;
+        n4.value = n3.value;
+    }
+
+    function sync2() {
+        var n1 = document.getElementById('debit2');
+        var n2 = document.getElementById('credit2');
+        var n3 = document.getElementById('deb2');
+        var n4 = document.getElementById('cre2');
+
+        n2.value = n1.value;
+        n3.value = n2.value;
+        n4.value = n3.value;
+    }
+
+    function sync3() {
+        var n1 = document.getElementById('debit3');
+        var n2 = document.getElementById('credit3');
+        var n3 = document.getElementById('deb3');
+        var n4 = document.getElementById('cre3');
+
+        n2.value = n1.value;
+        n3.value = n2.value;
+        n4.value = n3.value;
+    }
+
+
+    $(document).ready(function () {
+
+        $("#name").change(function () {
+
+            $(this).find("option:selected").each(function () {
+
+                var optionValue = $(this).attr("value");
+
+                if (optionValue) {
+
+                    $(".box").not("." + optionValue).hide();
+
+                    $("." + optionValue).show();
+
+                } else {
+
+                    $(".box").hide();
+
+                }
+
+            });
+
+        }).change();
+
+    });
+
+
+    $(document).ready(function () {
+        var date = new Date();
+        var currentMonth = date.getMonth();
+        var currentDate = date.getDate();
+        var currentYear = date.getFullYear();
+
+        $('#datepicker').datepicker({
+            minDate: new Date(currentYear, currentMonth, currentDate),
+            dateFormat: 'yy-mm-dd'
+        });
+    });
+
+
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $("#name option").filter(function () {
+            return $(this).val() == $("#change").val();
+        }).attr('selected', true);
+
+        $("#name").live("change", function () {
+
+            $("#change").val($(this).find("option:selected").attr("value"));
+        });
+    });
+
+    // var $ami = function(e){ return document.getElementById(e); }
+    // var swap = function(vali, el){
+    //     $ami(el).value = vali;
+    // }
+
+
+</script>
+
+
+</body>
+</html>

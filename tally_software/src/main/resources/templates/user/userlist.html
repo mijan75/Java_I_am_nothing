@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<head th:replace="/home :: head">
+
+
+
+
+
+</head>
+<body>
+<div th:replace="/home :: header">
+
+</div>
+
+
+    <div style="margin-top: 80px;" class="card">
+        <div class="card-header alert alert-primary text-center">
+            <h3><span class="fas fa-user"></span>Users List</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+
+                    <th>Created By</th>
+                    <th>Created Time</th>
+                    <th style="padding-left: 30px;">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--/*@thymesVar id="userslist" type=""*/-->
+                <tr th:each="user: ${userslist}">
+                    <td th:text="${user.getId()}"></td>
+                    <td th:text="${user.getName()}"></td>
+                    <td th:text="${user.getUsername()}"></td>
+
+                    <td th:text="${user.getEmail()}"></td>
+                    <td th:text="${user.getPhoneNumber()}"></td>
+
+                    <td th:text="${user.getCreated_by()}"></td>
+                    <td th:text="${user.getCreated_time()}"></td>
+                    <td>
+                        <!--<a th:href="${'/user/edit/' + user.getId()}"  class="btn btn-outline-info" type="button">Edit</a>-->
+                        <!--<a th:href="${'/users/edit/' + user.getId()}" class="btn btn-info">Edit</a>-->
+                        <a th:href="${'/user/delete/' + user.getId()}" class="btn btn-danger">Delete</a>
+                    </td>
+                    <td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+</body>
+</html>

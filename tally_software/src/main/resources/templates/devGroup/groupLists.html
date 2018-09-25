@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<head th:replace="/home :: head">
+
+
+
+    <script>
+        $(document).ready(function(c) {
+            $('.alert').on('click', function(c){
+                $('.moda').fadeOut('slow', function(c){
+                    $('.moda').remove();
+                });
+            });
+        });
+    </script>
+
+</head>
+<body>
+<div th:replace="/home :: header">
+
+</div>
+
+
+<div style="margin-top: 80px;" class="card">
+    <div class="card-header alert alert-primary text-center">
+        <h3><span class="fas fa-user"></span>Group List</h3>
+    </div>
+    <div class="card-title alert alert-secondary">
+        <a class="btn btn-outline-info" style="color: black" th:href="@{/dev/create}">Create Group</a>
+    </div>
+    <div class="card-body">
+        <div id="loginModal" class="moda text-center"  style="width: 500px; padding-left: 800px;" >
+            <div class="moda text-center"  style="width: 500px;"  th:if="${message}" th:text="${message}"  th:class="${'alert ' + alertClass}">
+                <a th:href="@{/}" style="margin-left: 40px; text-decoration: none"></a>
+            </div>
+
+        </div>
+
+        <table class="table table-striped">
+
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Group Name</th>
+                <!--<th>Address</th>-->
+                <!--<th>Email</th>-->
+                <!--<th>Phone Number</th>-->
+
+                <th>Created By</th>
+                <!--<th>Username</th>-->
+                <th>Created Time</th>
+                <th style="padding-left: 30px;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="userslist" type=""*/-->
+            <tr th:each="group: ${devGroupList}">
+                <td th:text="${group.getG_id()}"></td>
+                <td th:text="${group.getGroupName()}"></td>
+
+                <td th:text="${group.getCreated_by()}"></td>
+
+                <td th:text="${group.getCreated_time()}"></td>
+                <td>
+                    <a sec:authorize="hasAnyRole('ROLE_DEVELOPER')" th:href="@{'/devGroup/edit/' + ${group.getG_id()}}"  class="btn btn-outline-info" type="button">Edit</a>
+                    <!--<a sec:authorize="hasAnyRole('ROLE_USER')" th:href="@{'/navbar/' + ${company.getCompany_id()}}" class="btn btn-info">Open</a>-->
+                    <a sec:authorize="hasAnyRole('ROLE_DEVELOPER')" th:href="@{'/devGroup/delete/' + ${group.getG_id()}}" class="btn btn-outline-danger">Delete</a>
+                </td>
+                <td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

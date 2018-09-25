@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href='https://fonts.googleapis.com/css?family=Akronim|Advent Pro|Aladin|Sofia|Merienda|Alike Angular|Open Sans|Oswald' rel='stylesheet'>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+    <script>
+
+
+
+        function myMap() {
+            var mapCanvas = document.getElementById("map");
+            var mapOptions = {
+                center: new google.maps.LatLng(23.777176, 90.399452), zoom: 10
+            };
+            var map = new google.maps.Map(mapCanvas, mapOptions);
+        }
+
+
+        $(document).ready(function(c) {
+            $('.alert').on('click', function(c){
+                $('.moda').fadeOut('slow', function(c){
+                    $('.moda').remove();
+                });
+            });
+        });
+
+
+
+    </script>
+
+
+
+
+    <title>Accounting Web Application</title>
+
+<style>
+
+    .cardLogin{
+        border-radius: 25px;
+        border: 8px solid #73AD21;
+        padding: 20px;
+    }
+    .col {
+        float: left;
+        width: 48.33%;
+        padding: 15px;
+    }
+
+    /* Clear floats after image containers */
+    .rof::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    /* Create four equal columns that floats next to each other */
+    .colu {
+        float: left;
+        width: 25%;
+        padding: 10px;
+        height: 300px; /* Should be removed. Only for demonstration */
+    }
+
+    /* Clear floats after the columns */
+    .roww:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    #myBtn {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 30px;
+        z-index: 99;
+        font-size: 18px;
+        border: none;
+        outline: none;
+        background-color: #34ce57;
+        color: white;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 4px;
+    }
+
+    #myBtn:hover {
+        background-color: #555;
+    }
+    #log{
+        margin-left: 110px;
+    }
+    #log1{
+        margin-left: 10px;
+    }
+    .dropdown-menu a:hover{
+        background-color: #e5fdff;
+    }
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+    .dropdown:hover #navDropdown{
+        background-color: #efecff;
+    }
+    .dropdown-menu{
+        display: none;
+        position: absolute;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        background-color: #9fcdff;
+    }
+
+    .dropdown{
+        position: relative;
+        display: inline-block;
+    }
+    .dropdown-menu a{
+        color: #000000;
+        text-decoration: none;
+        display: block;
+    }
+
+    #navDropdown{
+        color: white;
+        border: none;
+    }
+
+    a.active {
+        border-bottom: 2px solid #ecf0f1;
+    }
+
+    .features-text{
+        animation-duration: 3s;
+        animation-name: slidein;
+    }
+
+    @keyframes slidein {
+        from {
+            margin-left: 100%;
+            width: 300%;
+        }
+
+        to {
+            margin-left: 0%;
+            width: 100%;
+        }
+    }
+
+    /*//image modal*/
+
+
+    #myImg {
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    #myImg:hover {opacity: 0.7;
+
+    }
+
+    #myImg1 {
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+
+    }
+
+    #myImg1:hover {
+        opacity: 0.7;
+
+
+    }
+
+    #myImg2 {
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+
+    }
+
+    #myImg2:hover {
+        opacity: 0.7;
+
+    }
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
+
+    /* Modal Content (image) */
+    .modal-content {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
+
+    /* Caption of Modal Image */
+    #caption {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+        text-align: center;
+        color: #ccc;
+        padding: 10px 0;
+        height: 150px;
+    }
+
+    /* Add Animation */
+    .modal-content, #caption {
+        -webkit-animation-name: zoom;
+        -webkit-animation-duration: 0.6s;
+        animation-name: zoom;
+        animation-duration: 0.6s;
+    }
+
+    @-webkit-keyframes zoom {
+        from {-webkit-transform:scale(0)}
+        to {-webkit-transform:scale(1)}
+    }
+
+    @keyframes zoom {
+        from {transform:scale(0)}
+        to {transform:scale(1)}
+    }
+
+    /* The Close Button */
+    .close {
+        position: absolute;
+        top: 55px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* 100% Image Width on Smaller Screens */
+    @media only screen and (max-width: 700px){
+        .modal-content {
+            width: 100%;
+        }
+    }
+
+
+</style>
+
+</head>
+<body>
+
+
+<nav style="color: black; margin-bottom: 30px;" th:fragment="header" class="navbar fixed-top navbar-expand-lg navbar-light bg-light rounded">
+    <img src="/img/accounting.png" style="width: 50px; height: 50px; border-radius: 25%"/>
+
+    <a style="font-size: 22px; font-family: 'Oswald'; padding-left: 10px;" class="navbar-brand text-info" th:href="@{/}">Accounting Web Application
+    <small  style="font-size: 13px;">Power of Accounting</small></a>
+
+    <ul class="navbar-nav ml-auto"  style="padding-right: 15px; color: black; font-family: 'Merienda';">
+        <li style="padding-top: 8px; padding-right: 10px;" class="nav-item" sec:authorize="isAuthenticated()">
+        <a class="text-info"> <span class="fas fa-user" ></span> Welcome <span th:text="${#request.userPrincipal.principal.name}"></span></a>
+        </li>
+
+        <li sec:authorize="hasAnyRole('ROLE_DEVELOPER','ROLE_ADMIN', 'ROLE_USER')" class="nav-item">
+            <a style="color: black"  th:href="@{/profile}"  class="nav-link text-info">Your Profile</a>
+        </li>
+
+
+        <li sec:authorize="hasAnyRole( 'ROLE_DEVELOPER')" class="nav-item dropdown">
+            <a style="color: black" class="nav-link dropdown-toggle text-info" href="#" id="navDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Accounting
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <!--<a  sec:authorize="hasAnyRole('ROLE_DEVELOPER')" class="dropdown-item" th:href="@{/dev/create}">Create Group</a>-->
+                <a  sec:authorize="hasAnyRole('ROLE_DEVELOPER')" class="dropdown-item" th:href="@{/voucher/voucherlist}">Voucher</a>
+
+                <a sec:authorize="hasAnyRole('ROLE_DEVELOPER')" class="dropdown-item" th:href="@{/dev/grouplists}">Group </a>
+                <!--<div class="dropdown-divider"></div>-->
+                <!--<a class="dropdown-item" href="#">Something else here</a>-->
+            </div>
+        </li>
+        <!--<li sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN')" class="nav-item dropdown">-->
+            <!--<a style="color: black" class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                <!--Transactions-->
+            <!--</a>-->
+            <!--<div class="dropdown-menu text-info" aria-labelledby="navbarDropdown">-->
+                <!--<a class="dropdown-item" href="#">Accounting Vouchers</a>-->
+                <!--<a class="dropdown-item" href="#">Inventory Vouchers</a>-->
+                <!--&lt;!&ndash;<div class="dropdown-divider"></div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<a class="dropdown-item" href="#">Something else here</a>&ndash;&gt;-->
+            <!--</div>-->
+        <!--</li>-->
+        <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" class="nav-item dropdown">
+            <a style="color: black" class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Company
+            </a>
+            <div class="dropdown-menu text-info" aria-labelledby="navbarDropdown">
+                <a sec:authorize="hasAnyRole('ROLE_DEVELOPER')" class="dropdown-item" th:href="@{/createCompany}">Create Company</a>
+                <a class="dropdown-item" th:href="@{/company/lists}">Company List</a>
+
+                <!--<div class="dropdown-divider"></div>-->
+                <!--<a class="dropdown-item" href="#">Something else here</a>-->
+            </div>
+        </li>
+
+        <li sec:authorize="hasAnyRole('ROLE_DEVELOPER','ROLE_ADMIN')" class="nav-item dropdown">
+            <a style="color: black"  class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                User
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" th:href="@{/user/lists}">User List</a>
+                <a sec:authorize="hasAnyRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/create/0}">Create User</a>
+                <!--<div class="dropdown-divider"></div>-->
+                <!--<a class="dropdown-item" href="#">Something else here</a>-->
+            </div>
+        </li>
+        <li sec:authorize="hasAnyRole('ROLE_DEVELOPER')" style="color: black;"  class="nav-item">
+            <a style="color: black"    th:href="@{/feedback/lists}"  class="nav-link text-info">User FeadBack</a>
+
+        </li>
+        <li style="color: black;" sec:authorize="!isAuthenticated()" class="nav-item">
+            <a style="color: black"    href="#features"  class="nav-link text-info">Features</a>
+
+        </li>
+        <li style="color: black;" sec:authorize="!isAuthenticated()" class="nav-item">
+            <a style="color: black"    href="#team-instructor"  class="nav-link text-info">About Us</a>
+
+        </li>
+        <li style="color: black;" sec:authorize="!isAuthenticated()" class="nav-item">
+        <a style="color: black"    href="#contact-form"  class="nav-link text-info">Contact Us</a>
+
+    </li>
+        <li style="color: black;" sec:authorize="!isAuthenticated()" class="nav-item">
+            <a style="color: black"    href="#feedback"  class="nav-link text-info">Feedback Box</a>
+
+        </li>
+        <!--<li style="color: black;" sec:authorize="!isAuthenticated()" class="nav-item">-->
+            <!--<a style="color: black" data-toggle="modal" data-target="#myModal"   th:href="@{/}"  class="nav-link text-info">Login</a>-->
+
+        <!--</li>-->
+        <li style="color: black;" sec:authorize="!isAuthenticated()" class="nav-item">
+            <a style="color: black"    th:href="@{/login}"  class="nav-link text-info">Login</a>
+
+            </li>
+
+            <li sec:authorize="isAuthenticated()" class="nav-item">
+                <a style="color: black"  th:href="@{/logout}"  class="nav-link text-info">Logout</a>
+            </li>
+        </ul>
+    </nav>
+
+        <header id="header" sec:authorize="!isAuthenticated()" style="font-family: 'Merienda';">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12" style="margin-top: 80px;">
+                        <h1>
+                            <a href="" style="font-size: 40px; font-family: 'Sofia'; text-decoration: none;" class="typewrite" data-period="2000"
+                               data-type='[ "Open Source Accounting Application For Your Small Business", "Free Accounting Application For Your Business",
+                               "Create Unlimited Company For Your Business Purpose",
+                               "It is a Role Based Accounting Application" ]'>
+                                <span class="wrap"></span>
+                            </a>
+                        </h1>
+                        <!--<h1 > <span style="font-size: 40px; " id="head-mide">Open Source Accounting Software For Your Small Business</span> </h1>-->
+                    <h5>This Web Application provides you some excellent  </br> accounting features that make easier to your business</h5>
+
+                    <div class="header-link">
+                        <a  href="#contact-form" class="btn btn-outline-primary">Contact With Us</a>
+                        <a sec:authorize="!isAuthenticated()"  type="button" th:href="@{/login}"  class="btn btn-outline-success">Login our Application</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+
+
+  <!--//Login Panel-->
+<div id="loginModal" class="moda text-center"  style="width: 500px; padding-left: 800px;" >
+    <div class="moda text-center"  style="width: 500px;"  th:if="${message}" th:text="${message}"  th:class="${'alert ' + alertClass}">
+         <a th:href="@{/}" style="margin-left: 40px; text-decoration: none"></a>
+    </div>
+
+    </div>
+
+<!--<div id="loginModal" class="moda text-center" th:if="${param.logout}" style="text-align: center">-->
+    <!--<div class="alert alert-info">-->
+        <!--You have been logged out.  <a th:href="@{/}" style="margin-left: 40px; text-decoration: none">X</a>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div  sec:authorize="!isAuthenticated()"  class="modal" id="myModal">-->
+    <!--<div class="container">-->
+        <!--<div class="row">-->
+            <!--<div class="col">-->
+
+            <!--</div>-->
+            <!--<div class="col">-->
+                <!--<div id="loginform" class="card cardLogin border-secondary mb-3">-->
+                    <!--<h3 class="title">User Login</h3>-->
+                    <!--<i class="fas fa-sign-in-alt"></i>-->
+                    <!--<form th:action="@{/}" method="post">-->
+
+                        <!--<div id="loginModal" class="moda" th:if="${param.error}">-->
+                            <!--<div class="alert alert-danger" style="text-align: center">-->
+                                <!--Invalid username or password.-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div th:if="${param.logout}" style="text-align: center">-->
+                            <!--<div class="alert alert-info">-->
+                                <!--You have been logged out.-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group">-->
+                            <!--<label>Username</label>-->
+                            <!--<span class="fas fa-user-alt"></span>-->
+                            <!--<input type="text" class="w3-input w3-border w3-round-large" id="username" name="username"   placeholder="Enter username" th:required="1">-->
+
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label>Password</label>-->
+                            <!--<span class="fas fa-key"></span>-->
+                            <!--<input type="password" name="password" class="w3-input w3-border w3-round-large" id="password"  placeholder="Password" th:required="1">-->
+                        <!--</div>-->
+
+                        <!--<button type="submit" id="log" class="btn btn-outline-primary" data-toggle="moda" data-target="#loginModal" >Login</button>-->
+                        <!--<a th:href="@{/}" id="log1" type="submit" class="btn btn-outline-dark">Back</a>-->
+                    <!--</form>-->
+
+
+                <!--</div>-->
+
+            <!--</div>-->
+            <!--<div class="col">-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+   <!--Features-->
+
+
+<section  sec:authorize="!isAuthenticated()"  id="features" class="text-md-center text-secondary" style="margin-top: 60px;">
+    <h2>Application Features</h2>
+    <hr style="width: 150px;">
+
+    <div class="row roww">
+        <div class="column colu" style="color: #1c7430">
+            <h4 class="features-text" ><span><i style="padding-right: 10px;" class="fas fa-grin-hearts"></i></span>Free Accounting</h4>
+            <p  style="width: 400px; padding-left: 80px;">Completely Free. No setup fees. No hidden charges. Not a free limited version. Free means free.</p>
+        </div>
+        <div class="column colu" style="color: #1c7430">
+            <h4 class="features-text" ><span><i style="padding-right: 10px;" class="fas fa-desktop"></i></span>Online Accounting</h4>
+            <p  style="width: 400px; padding-left: 80px;">See your financials online anytime, anywhere on your Mac, PC, tablet or mobile phone. No limits.</p>
+        </div>
+        <div class="column colu" style="color: #1c7430">
+            <h4 class="features-text" ><span><i style="padding-right: 10px;" class="fas fa-eye"></i></span>Open Source Accounting</h4>
+            <p  style="width: 400px; padding-left: 80px;">Take care about the privacy of your financials. Akaunting is Open Source so you can install on your host.</p>
+        </div>
+        <div class="column colu" style="color: #1c7430">
+            <h4 class="features-text" ><span><i style="padding-right: 10px;" class="fas fa-users"></i></span>Customer Management</h4>
+            <p  style="width: 400px; padding-left: 80px;">Create clients and send invoices to them. You can also set a password so they could to access the client portal.</p>
+        </div>
+
+
+
+        <div class="column colu" style="color: #1c7430">
+            <h4 class="features-text"><span><i style="padding-right: 10px;" class="fas fa-building"></i></span>Multi-Company</h4>
+            <p  style="width: 400px; padding-left: 80px;">Manage the finances of multiple companies from one admin panel. Assign users to different companies.</p>
+        </div>
+        <div class="column colu" style="color: #1c7430">
+            <h4 class="features-text" ><span><i style="padding-right: 10px;" class="fas fa-key"></i></span>Fine-Grained Permissions</h4>
+            <p  style="width: 400px; padding-left: 80px;">Configure permissions on a Role level to protect and simplify their management experience.</p>
+        </div>
+        <div class="column colu" style="color: #1c7430">
+            <h4 class="features-text" ><span><i style="padding-right: 10px;" class="fas fa-user-alt"></i></span>Customer Summary</h4>
+            <p  style="width: 400px; padding-left: 80px;">See the customer profile, address, list of transactions, and paid, open, and overdue totals at a glance.</p>
+        </div>
+        <div class="column colu" style="color: #1c7430">
+        <h4 class="features-text" ><span><i style="padding-right: 10px;" class="fas fa-hotel"></i></span>Bank Accounts</h4>
+        <p  style="width: 400px; padding-left: 80px;">Create unlimited bank and cash accounts and track their opening and current balances.</p>
+        </div>
+
+
+        <div class="column colu" style="color: #1c7430">
+            <h4 class="features-text" ><span><i style="padding-right: 10px;" class="fas fa-chart-pie"></i></span>Powerful Reporting</h4>
+            <p  style="width: 400px; padding-left: 80px;">Get detailed financial reports to help you better visualize all the information you need to improve your business.</p>
+        </div>
+        <div class="column colu" style="color: #1c7430">
+            <h4 class="features-text" ><span><i style="padding-right: 10px;" class="fas fa-lock"></i></span> Information security </h4>
+            <p  style="width: 400px; padding-left: 80px;">Protect your precious business information with extra layers of security.</p>
+        </div>
+        <div class="column colu" style="color: #1c7430">
+            <h4 class="features-text"  ><span><i style="padding-right: 10px;" class="fas fa-chalkboard-teacher"></i></span> Business performance dashboard </h4>
+            <p style="width: 400px; padding-left: 80px;">Get the full up-to-date picture of how your business is performing.</p>
+        </div>
+        <div class="column colu" style="color: #1c7430">
+            <h4 class="features-text"  ><span><i style="padding-right: 10px;" class="fas fa-flag"></i></span> Multilingual Panel</h4>
+            <p style="width: 400px; padding-left: 80px;">Manage your finances in your language. Switch between languages easily, instantly.</p>
+        </div>
+
+
+    </div>
+</section>
+
+<div id="mySidenav" class="sidenav" sec:authorize="!isAuthenticated()">
+    <a href="#" style="width: 130px; height: 60px;" id="facebook"><i style="padding-right: 14px; margin-top: -18px; font-size: 16px;" class="fab fa-facebook-f"></i>Facebook</a>
+    <a href="#" style="width: 130px; height: 60px;" id="twitter"><i style="padding-right: 14px;  margin-top: -18px; font-size: 16px;" class="fab fa-twitter"></i>Twitter</a>
+    <a href="#" style="width: 130px; height: 60px;" id="google"><i style="padding-right: 14px;  margin-top: -18px; font-size: 16px;" class="fab fa-google-plus-g"></i>Google+</a>
+    <a href="#" style="width: 130px; height: 60px;" id="linkedin"><i style="padding-right: 14px;  margin-top: -18px; font-size: 16px;" class="fab fa-linkedin-in"></i>LinkedIn</a>
+    <a href="#" style="width: 130px; height: 60px;" id="youtube"><i style="padding-right: 14px; padding-left: -10px;  margin-top: -18px; font-size: 16px;" class="fab fa-youtube"></i>Youtube</a>
+
+</div>
+
+ <hr style="width: 1500px" sec:authorize="!isAuthenticated()">  <!--Team Member-->
+
+<section  sec:authorize="!isAuthenticated()"  id="team-instructor">
+    <div class="container">
+
+
+            <div class="name text-center text-secondary" style="">
+                <h1 style="margin-bottom: 20px;">Our Instructor</h1>
+                <hr style="width: 150px;">
+                <span style="margin-top: 20px;" class="circle"><img id="myImg" class="rounded-circle" alt="Monirul Hasan" width="304" height="236" src="/img/monirul.jpg"></span>
+                <h3>Monirul Hasan</h3>
+                <h5>Lecturer and Coordinator</h5>
+                   <h6>Department of CSE</h6>
+                <p>Southeast University</p>
+            </div>
+
+<hr>
+
+    </div>
+
+</section>
+
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+    <div id="caption"></div>
+</div>
+
+
+<section  sec:authorize="!isAuthenticated()"  id="team-member" class="text-center text-secondary" style=" width: 900px; margin-left: 650px;">
+    <div class="row rof">
+
+    <div class="member text-center">
+    <h1 class="text-center">Team Member</h1>
+        <hr style="width: 150px;">
+
+
+        <div class="column col text-center">
+            <img id="myImg1" class="rounded-circle" alt="Nazmul Huda" width="304" height="236" src="/img/nazmul.jpg"  style="width:300px;  ">
+            <h3>Nazmul Huda</h3>
+            <h5>Student</h5>
+            <h6>Department of CSE</h6>
+            <p>Southeast University</p>
+        </div>
+        <div class="column col text-center">
+            <img id="myImg2" class="rounded-circle" width="304" height="236" alt="Mijanur Rahman" src="/img/mijanur.PNG" style="width:300px;">
+            <h3>Mijanur Rahaman</h3>
+            <h5>Student</h5>
+            <h6>Department of CSE</h6>
+            <p>Southeast University</p></div>
+    </div>
+
+    </div>
+
+</section>
+
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+    <div id="caption"></div>
+</div>
+
+<hr sec:authorize="!isAuthenticated()" style="width: 1500px">
+
+<section  sec:authorize="!isAuthenticated()"  id="section"  class="text-center text-secondary" style="margin-top: 80px;">
+
+    <h1>Contact Us</h1>
+    <hr style="width: 150px;">
+    <div class="container" style="margin-top: 60px;">
+        <div class="row">
+
+            <div class="col-md-6" style="padding-right: 80px;">
+                <div id="map" style="width:500px;height:700px;"></div>
+            </div>
+            <div class="col-md-6" style="padding-left: 80px;">
+                <div style="margin-top: -3px; height: 750px;" id="contact-form" class="card cardLogin border-secondary mb-3">
+                    <!--<h3 class="title">User Login</h3>-->
+                    <!--<i class="fas fa-sign-in-alt"></i>-->
+                    <form th:action="@{/}" th:object="${feedback}" method="post">
+
+
+
+                        <div class="form-group">
+                            <label>Name</label>
+                            <!--<span class="fas fa-envelope-open"></span>-->
+                            <input type="text" class="w3-input w3-border w3-round-large" id="name" name="name"   placeholder="Enter Your Name" th:required="1">
+
+                        </div>
+                        <div class="form-group">
+                        <label>E-mail</label>
+                        <!--<span class="fas fa-email"></span>-->
+                        <input type="email" name="email" class="w3-input w3-border w3-round-large" id="email"  placeholder="Enter Your E-mail" th:required="1">
+                    </div>
+
+                        <div class="form-group">
+                            <label>Company Name</label>
+                            <!--<span class="fas fa-email"></span>-->
+                            <input type="text" name="cellNumber" class="w3-input w3-border w3-round-large" id="cellNumber"  placeholder="Enter Your Phone Number" th:required="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="userText">Comment</label>
+                            <!--<span class="fas fa-text-width"></span>-->
+                            <textarea type="text" name="userText" class="w3-input w3-border w3-round-large" id="userText"  placeholder="Enter Your Text" th:required="1"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-primary">Submit</button>
+                        <!--<a th:href="@{/}" type="submit" class="btn btn-outline-dark">Back</a>-->
+                    </form>
+
+                </div>
+                <!--<a th:href="@{/registration}" class="float-right">Create an account</a>-->
+            </div>
+            <!--<div class="col">-->
+
+            <!--</div>-->
+        </div>
+    </div>
+</section>
+
+<hr sec:authorize="!isAuthenticated()" style="width: 1500px">
+<section sec:authorize="!isAuthenticated()"  id="section"  class="text-center text-secondary" style="margin-top: 80px;">
+
+
+ <h1 style="text-align: center; margin-top: -30px; padding-bottom: 20px;  margin-left: 130px;"> User Comments</h1>
+    <hr style="width: 150px; margin-top: -10px; margin-left: 930px;">
+    <div class="commentsliding"  >
+        <table >
+            <tr th:each="comment : ${commentList}" >
+                <td class="item-1" th:text="${comment.getId() == 263} ?  ${comment.getName()}" style="padding: 100px; width: 400px;"></td>
+                <td class="item-1" th:text="${comment.getId() == 263} ?  ${comment.getUserComment()}" style=" padding-top: 170px; padding-left: 90px; width: 290px;"></td>
+
+                <td class="item-2" th:text="${comment.getId() == 262} ?  ${comment.getName()}" style="padding: 100px; width: 400px;"></td>
+                <td class="item-2" th:text="${comment.getId() == 262} ?  ${comment.getUserComment()}" style=" padding-top: 170px; padding-left: 90px; width: 290px;"></td>
+
+
+                <td class="item-3" th:text="${comment.getId() == 264} ?  ${comment.getName()}" style="padding: 100px; width: 400px;"></td>
+                <td class="item-3" th:text="${comment.getId() == 264} ?  ${comment.getUserComment()}" style=" padding-top: 170px; padding-left: 90px; width: 290px;"></td>
+
+                <td class="item-4" th:text="${comment.getId() == 265} ?  ${comment.getName()}" style="padding: 100px; width: 400px;"></td>
+                <td class="item-4" th:text="${comment.getId() == 265} ?  ${comment.getUserComment()}" style=" padding-top: 170px; padding-left: 90px; width: 290px;"></td>
+
+                <td class="item-5" th:text="${comment.getId() == 266} ?  ${comment.getName()}" style="padding: 100px; width: 400px;"></td>
+                <td class="item-5" th:text="${comment.getId() == 266} ?  ${comment.getUserComment()}" style=" padding-top: 170px; padding-left: 90px; width: 290px;"></td>
+
+                <td class="item-6" th:text="${comment.getId() == 267} ?  ${comment.getName()}" style="padding: 100px; width: 400px;"></td>
+                <td class="item-6" th:text="${comment.getId() == 267} ?  ${comment.getUserComment()}" style=" padding-top: 170px; padding-left: 90px; width: 290px;"></td>
+
+                <td class="item-7" th:text="${comment.getId() == 268} ?  ${comment.getName()}" style="padding: 100px; width: 400px;"></td>
+                <td class="item-7" th:text="${comment.getId() == 268} ?  ${comment.getUserComment()}" style=" padding-top: 170px; padding-left: 90px; width: 290px;"></td>
+
+                <td class="item-8" th:text="${comment.getId() == 269} ?  ${comment.getName()}" style="padding: 100px; width: 400px;"></td>
+                <td class="item-8" th:text="${comment.getId() == 269} ?  ${comment.getUserComment()}" style=" padding-top: 170px; padding-left: 90px; width: 290px;"></td>
+
+                <td class="item-9" th:text="${comment.getId() == 270} ?  ${comment.getName()}" style="padding: 100px; width: 400px;"></td>
+                <td class="item-9" th:text="${comment.getId() == 270} ?  ${comment.getUserComment()}" style=" padding-top: 170px; padding-left: 90px; width: 290px;"></td>
+                <!--<td class="item-1" th:text="${comment.getUserComment() ==}" style="padding-left: 50px; padding-top: 20px;"></td>-->
+            </tr>
+
+        </table>
+        <!--<p ></p>-->
+        <!--<p class="item-2" th:text="${comment.getUserComment()}"></p>-->
+
+        <!--<p class="item-2">You take the blue pill - the story ends, you wake up in your bed and believe whatever you want to believe.</p>-->
+
+        <!--<p class="item-3">You take the red pill - you stay in Wonderland and I show you how deep the rabbit-hole goes.</p>-->
+
+
+    </div>
+</section>
+
+
+
+
+<hr sec:authorize="!isAuthenticated()" style="width: 1500px">
+
+<section  sec:authorize="!isAuthenticated()"  id="feedback"  class="text-center text-secondary" style="margin-top: 80px;">
+
+
+    </div>
+    <div class="container" style="margin-top: 60px;">
+        <div class="row">
+<div class="col-md-3"></div>
+            <!--<div class="col-md-6" style="padding-right: 80px;">-->
+                <!--<div id="map" style="width:500px;height:700px;"></div>-->
+            <!--</div>-->
+            <div class="col-md-6" style="padding-left: 80px;">
+                <h1 style="margin-left: 100px;">Comment Box</h1>
+
+                    <hr style="width: 150px;margin-left: 200px; ">
+                <div style="margin-top: -3px; height: 550px;" id="contact-form" class="card cardLogin border-secondary mb-3">
+                    <!--<h3 class="title">User Login</h3>-->
+                    <!--<i class="fas fa-sign-in-alt"></i>-->
+                    <form th:action="@{/comment}" th:object="${comment}" method="post" >
+
+
+
+                        <div class="form-group">
+                            <label>Name</label>
+                            <!--<span class="fas fa-envelope-open"></span>-->
+                            <input type="text" class="w3-input w3-border w3-round-large" id="name" name="name"   placeholder="Enter Your Name" th:required="1">
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="userComment">Comment</label>
+                            <!--<span class="fas fa-text-width"></span>-->
+                            <textarea type="text" name="userComment" class="w3-input w3-border w3-round-large" id="userComment"  placeholder="Send Your Comment" th:required="1"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-primary">Submit</button>
+                        <!--<a th:href="@{/}" type="submit" class="btn btn-outline-dark">Back</a>-->
+                    </form>
+
+                </div>
+                <!--<a th:href="@{/registration}" class="float-right">Create an account</a>-->
+            </div>
+            <div class="col-md-3"></div>
+            <!--<div class="col">-->
+
+            <!--</div>-->
+        </div>
+    </div>
+</section>
+
+  <!--footer-->
+
+<footer sec:authorize="!isAuthenticated()" class="footer1">
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5" style="margin-left: -30px;">
+                    <h2 class="logo" > <img src="/img/accounting.png" style="background: white; width: 80px; height: 80px; border-radius: 25%"/><a href="#" style="font-size: 20px; padding-left: 10px;"> Accounting Web Application
+                         </a></h2>
+                    <p style="margin-left: 200px;margin-top: -30px; color: whitesmoke; ">Power of Accounting</p>
+                </div>
+                <div class="col-sm-2">
+                    <h5 style="color: aquamarine">Get started</h5>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Sign up</a></li>
+                        <li><a href="#">Downloads</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                    <h5 style="color: aquamarine">About us</h5>
+                    <ul>
+                        <li><a href="#">Company Information</a></li>
+                        <li><a href="#contact-form">Contact us</a></li>
+                        <li><a href="#feedback">Reviews</a></li>
+                    </ul>
+                </div>
+                <!--<div class="col-sm-2">-->
+                    <!--<h5 style="color: aquamarine">Support</h5>-->
+                    <!--<ul>-->
+                        <!--<li><a href="#">FAQ</a></li>-->
+                        <!--<li><a href="#">Help desk</a></li>-->
+                        <!--<li><a href="#">Forums</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <div class="col-sm-3">
+                    <div class="social-networks">
+                        <a href="#" class="twitter"><i style="color: #66afe9" class="fab fa-facebook-square"></i></a>
+                        <a href="#" class="facebook"><i style="color: #66afe9" class="fab fa-twitter-square"></i></a>
+                        <a href="#" class="google"><i style="color: #66afe9" class="fab fa-google-plus-square"></i></a>
+                        <a href="#" class="google"><i style="color: #66afe9" class="fab fa-youtube-square"></i></a>
+                    </div>
+                    <button type="button" class="btn btn-outline-info" style="border-radius: 25%;">Contact us</button>
+                </div>
+            </div>
+        </div> <!--/.container-->
+    </div> <!--/.footer-->
+
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="pull-left" > Copyright © <span th:text="${#dates.year(#dates.createNow())}"></span>  <a href="">Nazmul Huda & Mijanur Rahman</a>.  All right reserved.</div>
+            <div class="pull-rigt" style="float: right; margin-top: -20px;">
+                <ul>
+                    <li><a href="">Page 1</a></li>
+                    <li><a href="">Page 2</a></li>
+                    <li><a href="">Page 3</a></li>
+                    <li><a href="">Page 4</a></li>
+                </ul>
+            </div>
+        </div>
+    </div> <!--/.footer-bottom-->
+</footer>
+
+
+
+<!--Scroll Button-->
+
+
+<button class="fas fa-arrow-up" onclick="topFunction()" id="myBtn" title="Go to top"></button>
+
+
+<script>
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("myBtn").style.display = "block";
+        } else {
+            document.getElementById("myBtn").style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+
+    var TxtType = function(el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+    };
+
+    TxtType.prototype.tick = function() {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+            this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+            this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+        var that = this;
+        var delta = 200 - Math.random() * 100;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+            delta = this.period;
+            this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+            this.isDeleting = false;
+            this.loopNum++;
+            delta = 500;
+        }
+
+        setTimeout(function() {
+            that.tick();
+        }, delta);
+    };
+
+    window.onload = function() {
+        var elements = document.getElementsByClassName('typewrite');
+        for (var i=0; i<elements.length; i++) {
+            var toRotate = elements[i].getAttribute('data-type');
+            var period = elements[i].getAttribute('data-period');
+            if (toRotate) {
+                new TxtType(elements[i], JSON.parse(toRotate), period);
+            }
+        }
+        // INJECT CSS
+        var css = document.createElement("style");
+        css.type = "text/css";
+        css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+        document.body.appendChild(css);
+    };
+
+    // $('#mymodal').on('hidden.bs.modal', function() {
+    //     this.modal('show');
+    // });
+
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById('myImg');
+    var img1 = document.getElementById('myImg1');
+    var img2 = document.getElementById('myImg2');
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function(){
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+    img1.onclick = function(){
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+    img2.onclick = function(){
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+
+</script>
+<script class="cssdeck" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=
+
+AIzaSyCrBk4BDsg1WsAd_M1VIj6NIOMeaMYlyoE&callback=myMap"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script th:src="@{/css/jquery.min.js}"/>
+<script th:src="@{/css/bootstrap.min.js}"/>
+<script th:src="@{/css/popper.min.js}"/>
+
+</body>
+</html>

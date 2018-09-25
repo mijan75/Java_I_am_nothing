@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<head th:replace="/home :: head">
+    <!-- Latest compiled and minified CSS -->
+
+
+    <!--<meta charset="UTF-8">-->
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>-->
+    <!--&lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">-->
+
+    <!--&lt;!&ndash; jQuery library &ndash;&gt;-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+
+    <!--&lt;!&ndash; Popper JS &ndash;&gt;-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>-->
+
+    <!--&lt;!&ndash; Latest compiled JavaScript &ndash;&gt;-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>-->
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">-->
+
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+
+
+
+
+</head>
+<body>
+<div th:replace="/home :: header">
+
+</div>
+
+<div style="margin-top: 80px;" class="container" >
+
+
+    <div class="card border-info mb-3">
+        <div class="card-header alert alert-primary">
+            <h3 class="text-center">Company Details</h3>
+        </div>
+        <div class="card-body">
+            <form style="width: 700px; padding-left: 150px; margin-bottom: 20px; padding-bottom: 50px; " th:action="${'/user/updateCompany/' +  company.getCompany_id()}" th:object="${company}" enctype="multipart/form-data" method="post" >
+
+                <div class="form-group">
+                    <label>Company Id:</label>
+                    <input readonly type="text" th:field="*{company_id}" class="form-control" id="company_id" th:required="1">
+                    <label th:if="${#fields.hasErrors('company_id')}" th:errors="*{company_id}" th:class="'error'"> Company Id</label>
+
+                </div>
+                <div class="form-group">
+                    <label>Company Name:</label>
+                    <input type="text" th:field="*{company_name}" class="form-control" id="company_name" th:required="1">
+                    <label th:if="${#fields.hasErrors('company_name')}" th:errors="*{company_name}" th:class="'error'">Enter Company Name</label>
+
+                </div>
+                <div class="form-group">
+                    <label for="address">Username:</label>
+                    <input type="text"  th:field="*{address}" class="form-control" id="address" th:required="1">
+                    <label th:if="${#fields.hasErrors('address')}" th:errors="*{address}" th:class="'error'">Enter Address</label>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="c_email">Email:</label>
+                    <input type="text"  th:field="*{c_email}" class="form-control" id="c_email" th:required="1">
+                    <label th:if="${#fields.hasErrors('c_email')}" th:errors="*{c_email}" th:class="'error'">Enter Email</label>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="phone_number">Phone Number:</label>
+                    <input type="text"  th:field="*{phone_number}" class="form-control" id="phone_number" th:required="1">
+                    <label th:if="${#fields.hasErrors('phone_number')}" th:errors="*{phone_number}" th:class="'error'">Enter Phone Number</label>
+                </div>
+
+                <label for="logo" >Company  Logo:</label>
+                <div class="custom-file" id="customFile" style="margin-bottom: 20px;">
+
+                    <input type="file" class="custom-file-input" name="file" id="logo" aria-describedby="fileHelp" >
+                    <label class="custom-file-label" for="logo">
+                        Select Image
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <img style="width: 100px; height: 50px;" th:field="*{company_id}" th:src="${'/company/' + company.company_id}" />
+                </div>
+
+                <div class="period" style="margin-top: 25px;">
+                <span class="inlineinput pull-left " >
+                <label for="startdate">Start Date:</label>
+                <input type="date" th:field="*{startdate}" class="form-control" name="startdate" id="startdate"
+                       style="display: inline; width: 180px ; margin-left: 10px; margin-bottom: 10px;" required>
+                </span>
+
+
+                    <span class="inlineinput pull-right " >
+                <label for="enddate" style="margin-left: 15px;">End Date:</label>
+                <input type="date" th:field="*{enddate}" class="form-control" name="enddate" id="enddate"
+                       style="display: inline; width: 180px ; margin-left: 10px; margin-bottom: 10px;" required>
+                </span>
+                </div>
+
+                <!--<div class="form-group">-->
+                    <!--<label for="created_by">Creaed By:</label>-->
+                    <!--<input readonly type="text"  th:field="*{created_by}" class="form-control" id="created_by" th:required="1">-->
+                    <!--<label  th:if="${#fields.hasErrors('created_by')}" th:errors="*{created_by}" th:class="'error'">Created By</label>-->
+                <!--</div>-->
+
+                <div class="form-group">
+                    <label for="username">User:</label>
+                    <select th:field="*{username}" class="form-control" name="username" id="username" required>
+                        <option th:value="None"> None </option>
+                        <option  th:each="user : ${users}"
+                                 th:value="${user.username}"
+                                 th:text="${user.username}" th:required="1"/>
+                    </select>
+
+
+
+                </div>
+                <!--<div class="form-group">-->
+                <!--<label for="role">Role:</label>-->
+                <!--<input type="text" th:value="${#request.userPrincipal.principal.role}"   class="form-control" id="role" th:required="1">-->
+
+                <!--</div>-->
+
+
+
+
+                <!--<div class="form-group">-->
+                <!--<label for="role">Role(select one)</label>:-->
+                <!--<select th:field="*{role}" class="form-control" id="role" th:required="1">-->
+                <!--<option  th:value="None">None</option>-->
+                <!--<option sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')"  th:value="ROLE_ADMIN">ADMIN</option>-->
+                <!--<option sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')"   th:value="ROLE_USER">USER</option>-->
+
+                <!--</select>-->
+                <!--</div>-->
+                <button   class="btn btn-info">Update</button>
+                <button  th:href="@{/company/lists}" class="btn btn-info">Back</button>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<head th:replace="/navbar :: navbarhead">
+
+
+    <script>
+        $(document).ready(function(c) {
+            $('.alert').on('click', function(c){
+                $('.moda').fadeOut('slow', function(c){
+                    $('.moda').remove();
+                });
+            });
+        });
+    </script>
+
+</head>
+<body>
+<div th:replace="/navbar :: navbar">
+
+</div>
+<div class="container">
+    <div class="panel panel-primary">
+
+        <div class="lgo" style="height: 100px;">
+
+            <h2 style="padding-top: 30px;" class="text-center panel-success" name="company" th:each="company : ${companyList}"
+                th:value="${company.company_id}" th:text="${company.company_name}"></h2>
+
+            <img th:each="company : ${companyList}"  th:src="${'/company/' + company.company_id}" style="margin-top: -90px; float: left;  width: 100px; height: 100px; border-radius: 25%;">
+            <b th:text="${execInfo.now.time}"  style="margin-left: 365px" ></b>
+
+            <div class="period">
+                <h4 style="float: right; margin-top: -45px; margin-right: 100px;">Cuurent Period</h4>
+                <div class="da" style="margin-bottom: 70px; padding-bottom: 50px;">
+                    <div  class="date" style="float: right; margin-right: 50px;" th:each="company : ${companyList}">
+                        <p>to</p>
+                        <p  style="float: right; padding-right: 20px; padding-left: 20px; margin-top: -30px;" th:text="${company.enddate}"></p>
+
+                    </div>
+
+                    <div  style="float: right;" class="date" th:each="company : ${companyList}">
+                        <p  style="float: right; padding-right: 10px;" th:text="${company.startdate}"></p>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <h3 class="panel-heading text-center">Unit Creation</h3>
+        <div class="well">
+            <a class="panel-title btn btn-info" th:href="@{'/navbar/'+${companyId}+'/unitList'}">Unit  List</a>
+        </div>
+
+        <form th:action="${'/navbar/'+companyId+'/unit/save'}" method="post" th:object="${unit}" style="width: 500px; margin-left: 300px; margin-bottom: 50px;">
+            <input type="hidden" th:value="${companyId}" name="companyId">
+            <div class="form-group">
+                <label for="symbolName">Unit Name:</label>
+                <input type="text" class="form-control" name="symbolName" id="symbolName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="formalName">Formal Name:</label>
+                <input type="text" class="form-control" name="formalName" id="formalName" required>
+            </div>
+
+
+
+
+
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+</div>
+
+
+<script th:replace="/navbar :: script">
+
+</script>
+
+
+</body>
+</html>

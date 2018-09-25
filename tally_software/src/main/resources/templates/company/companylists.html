@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<head th:replace="/home :: head">
+
+
+
+<script>
+    $(document).ready(function(c) {
+        $('.alert').on('click', function(c){
+            $('.moda').fadeOut('slow', function(c){
+                $('.moda').remove();
+            });
+        });
+    });
+</script>
+
+</head>
+<body>
+<div th:replace="/home :: header">
+
+</div>
+
+
+<div style="margin-top: 80px;" class="card">
+    <div class="card-header alert alert-primary text-center">
+        <h3><span class="fas fa-user"></span>Company List</h3>
+    </div>
+    <div class="card-body">
+        <div id="loginModal" class="moda text-center"  style="width: 500px; padding-left: 800px;" >
+            <div class="moda text-center"  style="width: 500px;"  th:if="${message}" th:text="${message}"  th:class="${'alert ' + alertClass}">
+                <a th:href="@{/}" style="margin-left: 40px; text-decoration: none"></a>
+            </div>
+
+        </div>
+
+        <table class="table table-striped">
+
+            <thead>
+            <tr>
+                <th>Logo</th>
+                <th>Company Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+
+                <th>Created By</th>
+                <th>Username</th>
+                <th>Created Time</th>
+                <th style="padding-left: 30px;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="userslist" type=""*/-->
+            <tr th:each="company: ${companyList}">
+                <td><img th:src="${'/company/' + company.company_id}" style="width: 80px; height: 80px; border-radius: 25%;"></td>
+                <td th:text="${company.getCompany_name()}"></td>
+                <td th:text="${company.getAddress()}"></td>
+
+                <td th:text="${company.getC_email()}"></td>
+                <td th:text="${company.getPhone_number()}"></td>
+
+                <td th:text="${company.getCreated_by()}"></td>
+                <td th:text="${company.getUsername()}"></td>
+                <td th:text="${company.getCreated_time()}"></td>
+                <td>
+                    <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{'/company/edit/' + ${company.getCompany_id()}}"  class="btn btn-outline-info" type="button">Edit</a>
+                    <a sec:authorize="hasAnyRole('ROLE_USER')" th:href="@{'/navbar/' + ${company.getCompany_id()}}" class="btn btn-info">Open</a>
+                    <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{'/user/delete/' + ${company.getCompany_id()}}" class="btn btn-danger">Delete</a>
+                </td>
+                <td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<head th:replace="/home :: head">
+    <!-- Latest compiled and minified CSS -->
+
+
+    <!--<meta charset="UTF-8">-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <!--&lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">-->
+
+    <!--&lt;!&ndash; jQuery library &ndash;&gt;-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+
+    <!--&lt;!&ndash; Popper JS &ndash;&gt;-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>-->
+
+    <!--&lt;!&ndash; Latest compiled JavaScript &ndash;&gt;-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>-->
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">-->
+
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+
+
+
+
+</head>
+<body>
+<div th:replace="/home :: header">
+
+</div>
+
+</div>
+
+
+<div style="margin-top: 80px;" class="card">
+    <div class="card-header alert alert-primary text-center">
+        <h3><span class="fas fa-user"></span>Users Feedback List</h3>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+
+                <th>Email</th>
+                <th>Company Name</th>
+
+                <th>Comment</th>
+                <th>Sending Time</th>
+                <th style="padding-left: 30px;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="userslist" type=""*/-->
+            <tr th:each="feedback: ${feedbackList}">
+                <td th:text="${feedback.getFeedback_id()}"></td>
+                <td th:text="${feedback.getName()}"></td>
+
+                <td th:text="${feedback.getEmail()}"></td>
+                <td th:text="${feedback.getCellNumber()}"></td>
+
+                <td th:text="${feedback.getUserText()}"></td>
+                <td th:text="${feedback.getCreated_time()}"></td>
+                <td>
+                    <!--<a th:href="${'/user/edit/' + user.getId()}"  class="btn btn-outline-info" type="button">Edit</a>-->
+                    <!--<a th:href="${'/users/edit/' + user.getId()}" class="btn btn-info">Edit</a>-->
+                    <a th:href="${'/feedback/delete/' + feedback.getFeedback_id()}" class="btn btn-danger">Delete</a>
+                    <a th:href="${'/create/' + feedback.getFeedback_id()}" class="btn btn-primary">Create Account</a>
+                </td>
+                <td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+</body>
+</html>

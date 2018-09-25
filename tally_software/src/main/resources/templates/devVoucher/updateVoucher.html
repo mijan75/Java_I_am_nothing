@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<head th:replace="/home :: head">
+    <!-- Latest compiled and minified CSS -->
+
+
+    <!--<meta charset="UTF-8">-->
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>-->
+    <!--&lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">-->
+
+    <!--&lt;!&ndash; jQuery library &ndash;&gt;-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+
+    <!--&lt;!&ndash; Popper JS &ndash;&gt;-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>-->
+
+    <!--&lt;!&ndash; Latest compiled JavaScript &ndash;&gt;-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>-->
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">-->
+
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+
+
+
+
+</head>
+<body>
+<div th:replace="/home :: header">
+
+</div>
+
+<div style="margin-top: 80px;" class="container" >
+
+
+    <div class="card border-info mb-3">
+        <div class="card-header alert alert-primary">
+            <h3 class="text-center">Group Details</h3>
+        </div>
+        <div class="card-body">
+            <form style="width: 700px; padding-left: 150px; margin-bottom: 20px; padding-bottom: 50px; " th:action="${'/dev/updateVoucher/' +  devVoucher.getV_id()}" th:object="${devVoucher}" method="post" >
+                <input readonly class="form-control" th:field="*{unique_id}" name="unique_id">
+
+                <div class="form-group">
+                    <label>Voucher Id:</label>
+                    <input readonly type="text" th:field="*{v_id}" class="form-control" id="v_id" th:required="1">
+                    <label th:if="${#fields.hasErrors('v_id')}" th:errors="*{v_id}" th:class="'error'"> Voucher Id</label>
+
+                </div>
+
+                <div class="form-group">
+                    <label>Voucher Name:</label>
+                    <input type="text" th:field="*{voucherName}" class="form-control" id="voucherName" th:required="1">
+                    <label th:if="${#fields.hasErrors('voucherName')}" th:errors="*{voucherName}" th:class="'error'">Enter Voucher Name</label>
+
+                </div>
+
+
+
+                <button   class="btn btn-outline-info">Update</button>
+                <a sec:authorize="hasAnyRole('ROLE_DEVELOPER')" class="btn btn-outline-dark" th:href="@{/voucher/voucherlist}">Back</a>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+</body>
+</html>

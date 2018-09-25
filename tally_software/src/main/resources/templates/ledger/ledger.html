@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<head th:replace="/navbar :: navbarhead">
+
+
+<script>
+    $(document).ready(function(c) {
+        $('.alert').on('click', function(c){
+            $('.moda').fadeOut('slow', function(c){
+                $('.moda').remove();
+            });
+        });
+    });
+</script>
+
+</head>
+<body>
+<div th:replace="/navbar :: navbar">
+
+</div>
+<div class="container">
+    <!--<h2>Dynamic Tabs</h2>-->
+    <!--<p>To make the tabs toggleable, add the data-toggle="tab" attribute to each link. Then add a .tab-pane class with a unique ID for every tab and wrap them inside a div element with class .tab-content.</p>-->
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">Ledegr Creation</a></li>
+        <li><a data-toggle="tab" href="#menu1">Ledger List</a></li>
+        <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+        <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <div class="container" style="margin-top: 40px;">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                <form th:action="@{/navbar/ledger}" method="post" th:object="${ledger}">
+                    <input type="hidden" th:value="${companyId}" name="companyId">
+                <div class="form-group">
+                    <label for="name">Ledger Name:</label>
+                    <input type="text" class="form-control" name="ledger_name" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="groups">Groups:</label>
+                    <select name="groups" id="groups" class="form-control" required>
+                        <option th:each="group : ${groupList}" th:value="${group.groupId}" th:text="${group.groupName}"></option>
+                    </select>
+                </div>
+                    <hr style="color: black;" height="10px;">
+                    <div class="form-group">
+                        <label for="mailing">Mailing Name:</label>
+                        <input type="text" class="form-control" name="mailing_name" id="mailing" >
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <textarea type="text" class="form-control" name="address" id="address" >
+
+                        </textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mail">Email :</label>
+                        <input type="email" class="form-control" name="email" id="mail" >
+                    </div>
+
+
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+
+        </div>
+        <div id="menu1" class="tab-pane fade">
+            <h3>Ledger List</h3>
+            <table class="table table-striped">
+
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Ledger Name</th>
+                    <th>Group Name</th>
+                    <th>Mailing Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+
+                    <!--<th>Created By</th>-->
+                    <!--<th>Username</th>-->
+                    <!--<th>Created Time</th>-->
+                    <th style="padding-left: 30px;">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--/*@thymesVar id="userslist" type=""*/-->
+                <tr th:each="ledger: ${ledgerList}">
+                    <td th:text="${ledger.getLedger_id()}"></td>
+                    <td th:text="${ledger.getLedger_name()}"></td>
+                    <td th:text="${ledger.getGroups().groupName}"></td>
+                    <td th:text="${ledger.getMailing_name()}"></td>
+                    <td th:text="${ledger.getMailing_name()}"></td>
+                    <td th:text="${ledger.getAddress()}"></td>
+
+
+                    <td>
+                        <a sec:authorize="hasAnyRole('ROLE_USER')" th:href="@{'/navbar/ledger/edit/' + ${ledger.getLedger_id()}}"  class="btn btn-info" type="button">Edit</a>
+                        <!--<a sec:authorize="hasAnyRole('ROLE_USER')" th:href="@{'/navbar/' + ${company.getCompany_id()}}" class="btn btn-info">Open</a>-->
+                        <a sec:authorize="hasAnyRole('ROLE_USER')" th:href="@{'/navbar/ledger/delete/' + ${ledger.getLedger_id()}}" class="btn btn-danger">Delete</a>
+                    </td>
+                    <td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--<div id="menu2" class="tab-pane fade">-->
+            <!--<h3>Update Ledger</h3>-->
+            <!--<form th:action="${'/navbar/ledger/' +  ledger.getLedger_id()}" method="post" th:object="${ledger}">-->
+                <!--<input type="hidden" th:value="${companyId}" name="companyId">-->
+
+
+                <!--<div class="form-group">-->
+                    <!--<label>Ledger Id:</label>-->
+                    <!--<input readonly type="text" th:field="*{ledger_id}" class="form-control" id="ledger_id" th:required="1">-->
+                    <!--<label th:if="${#fields.hasErrors('ledger_id')}" th:errors="*{ledger_id}" th:class="'error'"> Ledger Id</label>-->
+
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label for="ledger_name">Ledger Name:</label>-->
+                    <!--<input type="text" th:field="*{ledger_name}" class="form-control" name="ledger_name" id="ledger_name" required>-->
+                    <!--<label th:if="${#fields.hasErrors('ledger_name')}" th:errors="*{ledger_name}" th:class="'error'">Enter Ledger Name</label>-->
+
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label for="groups">Groups:</label>-->
+                    <!--<select name="groups" th:field="*{group.groupName}" id="groups" class="form-control" required>-->
+                        <!--<option th:each="group : ${groupList}" th:value="${group.groupId}" th:text="${group.groupName}"></option>-->
+                        <!--<label th:if="${#fields.hasErrors('groups')}" th:errors="*{groups}" th:class="'error'">Enter Groups Name</label>-->
+
+                    <!--</select>-->
+                <!--</div>-->
+                <!--<hr style="color: black;" height="10px;">-->
+                <!--<div class="form-group">-->
+                    <!--<label for="mailing_name">Mailing Name:</label>-->
+                    <!--<input type="text" th:field="*{mailing_name}" class="form-control" name="mailing_name" id="mailing_name" >-->
+                    <!--<label th:if="${#fields.hasErrors('mailing_name')}" th:errors="*{mailing_name}" th:class="'error'">Enter Mailing Name</label>-->
+
+
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label for="addressbar">Address:</label>-->
+                    <!--<textarea type="text" th:field="*{address}" class="form-control" name="address" id="addressbar" >-->
+                        <!--</textarea>-->
+                    <!--<label th:if="${#fields.hasErrors('address')}" th:errors="*{address}" th:class="'error'">Enter Address</label>-->
+
+                <!--</div>-->
+
+                <!--<div class="form-group">-->
+                    <!--<label for="email">Email :</label>-->
+                    <!--<input type="email" th:field="*{email}" class="form-control" name="email" id="email" >-->
+                    <!--<label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:class="'error'">Enter Email</label>-->
+
+                <!--</div>-->
+
+
+                <!--<button type="submit" class="btn btn-default">Submit</button>-->
+            <!--</form>-->
+        <!--</div>-->
+        <div id="menu3" class="tab-pane fade">
+            <h3>Menu 3</h3>
+            <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script th:replace="/navbar :: script">
+
+</script>
+
+</body>
+</html>

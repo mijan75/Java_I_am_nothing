@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<head th:replace="/navbar :: navbarhead">
+
+
+    <script>
+        $(document).ready(function(c) {
+            $('.alert').on('click', function(c){
+                $('.moda').fadeOut('slow', function(c){
+                    $('.moda').remove();
+                });
+            });
+        });
+    </script>
+
+</head>
+<body>
+
+<div th:replace="/navbar :: navbar">
+
+</div>
+<div class="container">
+    <div class="panel panel-primary" style="padding-bottom: 10px;">
+        <h2 style="padding-top: 30px;" class="text-center panel-success" name="company" th:each="company : ${companyList}"
+            th:value="${company.company_id}" th:text="${company.company_name}"></h2>
+        <!--<b th:text="${execInfo.now.time}"  style="margin-left: 470px;"></b>-->
+
+        <img th:each="company : ${companyList}"  th:src="${'/company/' + company.company_id}" style="margin-top: -70px;  width: 100px; height: 100px; border-radius: 25%;">
+        <b th:text="${execInfo.now.time}"  style="margin-left: 360px" ></b>
+        <div class="period">
+        <h4 style="float: right; margin-top: -30px; margin-right: 100px;">Cuurent Period</h4>
+            <div class="da" style="margin-top: -40px; padding-bottom: 50px;">
+            <div  class="date" style="float: right; margin-right: 50px;" th:each="company : ${companyList}">
+                <p>to</p>
+                <p  style="float: right; padding-right: 20px; padding-left: 20px; margin-top: -30px;" th:text="${company.enddate}"></p>
+
+            </div>
+
+            <div  style="float: right;" class="date" th:each="company : ${companyList}">
+                <p  style="float: right; padding-right: 10px;" th:text="${company.startdate}"></p>
+
+            </div>
+            </div>
+
+        </div>
+            <!--<a class="panel-title btn btn-info" th:href="@{'/navbar/'+${companyId}+'/journalList'}">Jounal List</a>-->
+            <h3 class="panel-heading text-center">Day Book</h3>
+
+            <input type="hidden" th:value="${companyId}" name="companyId">
+
+        <button  onclick="document.getElementById('content').innerHTML=document.getElementById('detailstable').innerHTML;" class="btn btn-secondary"  id="details">Details View</button>
+        <button  onclick="document.getElementById('content').innerHTML=document.getElementById('grouptable').innerHTML;" class="btn btn-secondary"  id="groupwise">Group Wise</button>
+        <button  onclick="document.getElementById('content').innerHTML=document.getElementById('vouchertable').innerHTML;" class="btn btn-secondary"  id="voucherwise">Voucher Wise</button>
+
+        <span class="inlineinput pull-right " style="margin-right: 80px; ">
+                        <label for="datepicker">Date:</label>
+                        <input type="date" class="form-control" name="searchdate" id="datepicker"
+                               style="display: inline; width: 180px ; margin-left: 50px; margin-bottom: 10px;" required>
+                    </span>
+    </div>
+
+    <div id="content" >
+    </div>
+    <div id="detailstable"  style="visibility: hidden">
+        <table  class="table table-striped" >
+
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Voucher Type</th>
+                <th>Group Name(Debit)</th>
+                <th>Debit  Amount</th>
+                <th>Group Name(Credit)</th>
+                <th>Credit Amount</th>
+                <!--<th>Mailing Name</th>-->
+                <!--<th>Email</th>-->
+                <!--<th>Address</th>-->
+
+                <!--<th>Created By</th>-->
+                <!--<th>Username</th>-->
+                <!--<th>Created Time</th>-->
+                <!--<th style="padding-left: 30px;">Action</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="userslist" type=""*/-->
+            <tr th:each="accounts: ${accountingVoucherList}">
+                <td th:text="${accounts.getCreated_time()}"></td>
+                <td th:text="${accounts.getVoucherName()}"></td>
+                <td th:text="${accounts.getDebitId()}"></td>
+
+                <td th:text="${accounts.getDebit()}"></td>
+                <td th:text="${accounts.getCreditId()}"></td>
+                <td th:text="${accounts.getCredit()}"></td>
+
+
+
+                <!--<td>-->
+                    <!--<a sec:authorize="hasAnyRole('ROLE_USER')" th:href="@{'/navbar/'+${companyId}+'/ledger/edit/' + ${ledger.getLedger_id()}}"  class="btn btn-info" type="button">Edit</a>-->
+                    <!--&lt;!&ndash;<a sec:authorize="hasAnyRole('ROLE_USER')" th:href="@{'/navbar/' + ${company.getCompany_id()}}" class="btn btn-info">Open</a>&ndash;&gt;-->
+                    <!--<a sec:authorize="hasAnyRole('ROLE_USER')" th:href="@{'/navbar/'+${companyId}+'/ledger/delete/' + ${ledger.getLedger_id()}}" class="btn btn-danger">Delete</a>-->
+                <!--</td>-->
+                <!--<td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="grouptable" style="visibility: hidden">
+        <div class="col-md-6">
+    <table  class="table table-striped" >
+
+        <thead>
+        <tr>
+            <th>Group Name(Debit)</th>
+
+            <th>Debit  Amount</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <!--/*@thymesVar id="userslist" type=""*/-->
+        <tr th:each="accounts: ${voucherMap}">
+            <td th:text="${accounts.getKey()}"></td>
+            <td th:text="${accounts.getValue()}"></td>
+
+
+
+
+        </tr>
+        <tr>
+            <td><h5 style="font-weight: bold">Grand Total:</h5></td>
+            <td th:text="${debitSum}"></td>
+            <!--<td th:text="${creditSum}"> </td>-->
+        </tr>
+
+        </tbody>
+    </table>
+        </div>
+    <div class="col-md-6">
+        <table  class="table table-striped " >
+
+            <thead>
+            <tr>
+                <th>Group Name(Credit)</th>
+
+                <th>Credit  Amount</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="userslist" type=""*/-->
+            <tr th:each="accounts1: ${voucherMap1}">
+                <td th:text="${accounts1.getKey()}"></td>
+                <td th:text="${accounts1.getValue()}"></td>
+
+
+
+
+            </tr>
+            <tr>
+                <td><h5 style="font-weight: bold">Grand Total:</h5></td>
+                <!--<td th:text="${debitSum}"></td>-->
+                <td th:text="${creditSum}"> </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    </div>
+
+
+
+    <div id="vouchertable" style="visibility: hidden">
+        <div class="col-md-12">
+            <table  class="table table-striped" >
+
+                <thead>
+                <tr>
+                    <th>Voucher Type</th>
+
+                    <th> Amount</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <!--/*@thymesVar id="userslist" type=""*/-->
+                <tr th:each="voucher: ${voucherTypeMap}">
+
+                    <td th:text="${voucher.getKey()}"></td>
+                    <td th:text="${voucher.getValue()}"></td>
+
+
+
+
+                </tr>
+                <tr>
+                    <td><h5 style="font-weight: bold">Grand Total:</h5></td>
+                    <td th:text="${voucherSum}"></td>
+                    <!--<td th:text="${creditSum}"> </td>-->
+                </tr>
+
+                </tbody>
+            </table>
+
+
+    </div>
+
+
+
+
+
+</div>
+
+
+<script th:replace="/navbar :: script">
+
+</script>
+
+
+
+</body>
+</html>>

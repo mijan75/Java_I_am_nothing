@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<head th:replace="/navbar :: navbarhead">
+
+
+<script>
+$(document).ready(function(c) {
+$('.alert').on('click', function(c){
+$('.moda').fadeOut('slow', function(c){
+$('.moda').remove();
+});
+});
+});
+</script>
+
+<style>
+
+</style>
+</head>
+<body>
+<div th:replace="/navbar :: navbar">
+
+</div>
+<div class="row">
+<div class="col-md-1"></div>
+<div class="col-md-10">
+<div class="panel panel-primary">
+
+<h3 class="panel-heading text-center">Journal Create</h3>
+<div class="well">
+<h2 class="text-center" name="company" th:each="company : ${companyList}" th:value="${company.company_id}" th:text="${company.company_name}"></h2>
+<!--<select name="company" id="company" class="form-control" required>-->
+<!--<option th:each="company : ${companyList}" th:value="${company.company_id}" th:text="${company.company_name}"></option>-->
+<!--</select>-->
+<!--<h3 > <input type="text" th:field="*{company}" name="company" readonly class="form-control"></h3>-->
+<!--<a class="panel-title btn btn-info" th:href="@{'/navbar/'+${companyId}+'/journalList'}">Jounal List</a>-->
+</div>
+
+<!--<form th:action="${'/navbar/'+companyId+'/journal/save'}" method="post" th:object="${journal}" style="width: 500px; margin-left: 300px; margin-bottom: 50px;">-->
+<!--<input type="hidden" th:value="${companyId}" name="companyId">-->
+<!--<div class="form-group">-->
+<!--<label for="datepicker">Date:</label>-->
+<!--<input type="date" class="form-control" name="created_time" id="datepicker" required/>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label for="devVoucher">Voucher:</label>-->
+<!--<select name="devVoucher" id="devVoucher" class="form-control" required>-->
+<!--<option th:each="voucher : ${devVoucherList}" th:value="${voucher.v_id}" th:text="${voucher.voucherName}"></option>-->
+<!--</select>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label for="ledger">Dr.</label>-->
+<!--<select name="ledger" id="ledger" class="form-control" required>-->
+<!--<option th:each="ledger : ${ledgerList}" th:value="${ledger.ledger_id}" th:text="${ledger.ledgerName}"></option>-->
+<!--</select>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label for="debit">Debit Ammount:</label>-->
+<!--<input type="number" class="form-control" name="debit" id="debit" onkeyup="sync()" required>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label for="ledger">Cr.</label>-->
+<!--<select name="ledger" id="ledger1" class="form-control" required>-->
+<!--<option th:each="ledger : ${ledgerList}" th:value="${ledger.ledger_id}" th:text="${ledger.ledgerName}"></option>-->
+<!--</select>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label for="credit">Credit Ammount:</label>-->
+<!--<input readonly type="number" class="form-control" name="credit" id="credit"  required>-->
+<!--</div>-->
+
+<!--<hr style="color: black;" height="10px;">-->
+<!--<div class="form-group">-->
+<!--<label for="narration">Narration:</label>-->
+<!--<textarea type="text"  placeholder="Not Mandatory" class="form-control" name="narration" id="narration" ></textarea>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label for="total">Total:</label>-->
+<!--<input readonly type="number"  class="form-control" name="total" id="total" >-->
+
+
+<!--</div>-->
+
+
+
+
+<!--<button type="submit" class="btn btn-primary">Submit</button>-->
+<!--</form>-->
+<form th:action="${'/navbar/'+companyId+'/journal/save'}" method="post" th:object="${journal}">
+<input type="hidden" th:value="${companyId}" name="companyId">
+<div>
+
+<div class="form-group">
+<span class="inlineinput" >
+<label for="Ref" style="margin-left: 10px;"  >Ref:</label>
+<input type="number" class="form-control" name="ref" id="ref" style="display: inline; width: 15%; margin-left: 50px;" required>
+
+
+
+
+</span>
+
+
+<span class="inlineinput pull-right " style="margin-right: 80px; ">
+<label for="datepicker" style="margin-right: 20px;" >Date:</label>
+<input  type="date" style="display: inline; width: 180px ; padding-top: 5px;" class="form-control" name="created_time" id="datepicker" required>
+
+</span>
+
+
+
+</div>
+</div>
+
+
+<div class="contra ">
+
+
+<table id="keywords" class="table table-striped table-bordered table-hover">
+
+<thead>
+<tr style="color:black;">
+
+<th width="45%" style="text-align: center;" >Particulars</th>
+<th width="25%" style="text-align: center;">Amount</th>
+<!--<th width="20%">Credit</th>-->
+
+
+</tr>
+</thead>
+<tbody >
+
+<tr >
+<!--<td rowspan="2" style="padding-top:50px;" value="date"> <input type="date" class="form-control" name="created_time" id="datepicker" required/></td>-->
+<td ><label class="pull-left " style="padding-top: 8px; " for="ledger" >Dr.</label>
+<div class="col-xs-10">
+<select name="debitLedger" style="margin-left: 50px;" id="ledger" class="form-control" required>
+<option  th:each="ledger : ${ledgerList}" th:value="${ledger.ledger_id}" th:text="${ledger.ledgerName}" required></option>
+</select>
+</div>
+</td>
+
+<td>
+<input type="number" class="form-control" name="debit" id="debit" onkeyup="sync()" required>
+</td>
+
+<!--<td>-->
+<!--<input type="number" class="form-control" name="debit" id="credit"  onkeyup="sync()" required>-->
+<!--</td>-->
+
+
+</tr>
+
+<tr>
+
+<td>
+<label class="pull-left" style="padding-top: 8px;" for="ledger" >Cr.</label>
+<div class="col-xs-10">
+<select style="margin-left: 50px;" name="creditLedger" id="creditLedger" class="form-control" required>
+<option  th:each="ledger : ${ledgerList}" th:value="${ledger.ledger_id}" th:text="${ledger.ledgerName}"></option>
+</select>
+</div>
+</td>
+
+<td>
+<input type="number"  class="form-control" name="credit" id="credit" onkeyup="sync()"  required>
+</td>
+<!--<td>-->
+<!--<input type="number" class="form-control" name="debit" id="credit2" onkeyup="sync()" required>-->
+
+<!--</td>-->
+
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<label class="pull-left " style="margin-top: 25px;" for="narration" >Narration:</label>
+<div class="col-xs-10">
+<textarea type="text"  placeholder="Not Mandatory" class="form-control" name="narration" id="narration" >
+
+</textarea>
+</div>
+</td>
+
+<td>
+
+<input readonly type="number" placeholder="Credit"  style="margin-top:15px; width: 48%; float: left;" class="form-control" name="total" id="deb"  required>
+<input readonly placeholder="Debit" type="number" style="margin-top:15px; width: 50%; float: right;" class="form-control" name="total" id="cre"  required>
+</td>
+
+
+
+</tr>
+</tbody>
+</table>
+<button type="submit" class="btn btn-primary form-control" style="margin-bottom: 50px; margin-left: 0px;">Submit</button>
+
+</div>
+</form>
+
+
+<!--<div class="purchase box">-->
+<!--<form>-->
+
+<!--<table id="keywords1" class="table table-striped table-bordered table-hover">-->
+
+<!--<thead>-->
+<!--<tr style="color:black;">-->
+<!--<th width="25%">Name of Item</th>-->
+<!--<th width="20%">Purchase Ledger</th>-->
+<!--<th width="15%">Quantity</th>-->
+<!--<th width="15%">Rate</th>-->
+<!--<th width="10%">Per</th>-->
+<!--<th width="20%">Amount</th>-->
+
+
+<!--&lt;!&ndash;<th>Created By</th>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<th>Created Time</th>&ndash;&gt;-->
+<!--&lt;!&ndash;<th sec:authorize="hasAnyRole('ROLE_DEVELOPER')" style="padding-left: 30px;">Action</th>&ndash;&gt;-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody >-->
+<!--&lt;!&ndash;/*@thymesVar id="userslist" type=""*/&ndash;&gt;-->
+<!--<tr>-->
+<!--<td > <select name="ledger" id="ledger4" class="form-control" required>&ndash;&gt;-->
+<!--<option th:each="item : ${stockItemsList}" th:value="${item.id}" th:text="${item.itemName}"></option>-->
+<!--</select>-->
+<!--</td>-->
+<!--<td><select name="ledger" id="ledger2" class="form-control" required>&ndash;&gt;-->
+<!--<option th:each="ledger : ${ledgerList}" th:value="${ledger.ledger_id}" th:text="${ledger.ledgerName}"></option>-->
+<!--</select>-->
+<!--</td>-->
+
+<!--<td>-->
+<!--<input type="number" class="form-control" name="quantity" id="quantity"  required>-->
+<!--</td>-->
+
+<!--<td>-->
+<!--<input type="number" class="form-control" name="rate" id="rate"  required>-->
+<!--</td>-->
+
+<!--<td > <select name="ledger" id="ledger3" class="form-control" required>&ndash;&gt;-->
+<!--<option th:each="unit : ${unitList}" th:value="${unit.id}" th:text="${unit.symbolName}"></option>-->
+<!--</select></td>-->
+<!--<td>-->
+<!--<input type="number" class="form-control" name="total" id="total"  required>-->
+
+<!--</td>-->
+
+<!--</tr>-->
+
+
+<!--</tbody>-->
+<!--</table>-->
+<!--</form>-->
+<!--</div>-->
+
+
+
+</div>
+</div>
+<div class="col-md-2"></div>
+</div>
+<!--</div>-->
+
+
+<script th:replace="/navbar :: script">
+
+</script>
+
+<script type="text/javascript">
+function sync()
+{
+var n1 = document.getElementById('debit');
+var n2 = document.getElementById('credit');
+var n3 = document.getElementById('deb');
+var n4 = document.getElementById('cre');
+
+n2.value = n1.value;
+n3.value = n2.value;
+n4.value = n3.value;
+}
+
+
+$(document).ready(function(){
+
+$("select").change(function(){
+
+$(this).find("option:selected").each(function(){
+
+var optionValue = $(this).attr("value");
+
+if(optionValue){
+
+$(".box").not("." + optionValue).hide();
+
+$("." + optionValue).show();
+
+} else{
+
+$(".box").hide();
+
+}
+
+});
+
+}).change();
+
+});
+
+
+$(document).ready(function () {
+var date = new Date();
+var currentMonth = date.getMonth();
+var currentDate = date.getDate();
+var currentYear = date.getFullYear();
+
+$('#datepicker').datepicker({
+minDate: new Date(currentYear, currentMonth, currentDate),
+dateFormat: 'yy-mm-dd'
+});
+});
+
+
+
+</script>
+
+
+
+</body>
+</html>

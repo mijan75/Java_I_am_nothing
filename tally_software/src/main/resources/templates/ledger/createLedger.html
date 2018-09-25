@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<head th:replace="/navbar :: navbarhead">
+
+
+    <script>
+        $(document).ready(function(c) {
+            $('.alert').on('click', function(c){
+                $('.moda').fadeOut('slow', function(c){
+                    $('.moda').remove();
+                });
+            });
+        });
+    </script>
+
+</head>
+<body>
+    <div th:replace="/navbar :: navbar">
+
+    </div>
+    <div class="container">
+    <div class="panel panel-primary">
+
+        <h3 class="panel-heading text-center">Ledger Create</h3>
+        <div class="well">
+            <a class="panel-title btn btn-info" th:href="@{'/navbar/'+${companyId}+'/ledger/lists'}">Ledger List</a>
+        </div>
+
+        <form th:action="@{/navbar/'+companyId+'/ledger/save}" method="post" th:object="${ledger}" style="width: 500px; margin-left: 300px; margin-bottom: 50px;">
+            <input type="hidden" th:value="${companyId}" name="companyId">
+            <div class="form-group">
+                <label for="name">Ledger Name:</label>
+                <input type="text" class="form-control" name="ledgerName" id="name" onkeyup="sync()" required>
+            </div>
+            <div class="form-group">
+                <label for="devGroup">Groups:</label>
+                <select name="devGroup" id="devGroup" class="form-control" required>
+                    <option th:each="group : ${groupList}" th:value="${group.g_id}" th:text="${group.groupName}"></option>
+                </select>
+            </div>
+            <hr style="color: black;" height="10px;">
+            <div class="form-group">
+                <label for="mailing">Mailing Name:</label>
+                <input type="text"  placeholder="Not Mandatory" class="form-control" name="mailing_name" id="mailing" >
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <textarea placeholder="Not Mandatory" type="text" rows="4" cols="30"  class="form-control" name="address" id="address" >
+
+                        </textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="mail">Email :</label>
+                <input type="email" placeholder="Not Mandatory" class="form-control" name="email" id="mail" >
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        </div>
+    </div>
+    </div>
+
+
+    <script th:replace="/navbar :: script">
+
+    </script>
+
+    <script type="text/javascript">
+        function sync()
+        {
+            var n1 = document.getElementById('name');
+            var n2 = document.getElementById('mailing');
+            n2.value = n1.value;
+        }
+    </script>
+
+
+</body>
+</html>

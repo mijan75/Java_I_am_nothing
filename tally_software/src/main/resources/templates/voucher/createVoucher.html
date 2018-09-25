@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<head th:replace="/navbar :: navbarhead">
+
+
+    <script>
+        $(document).ready(function(c) {
+            $('.alert').on('click', function(c){
+                $('.moda').fadeOut('slow', function(c){
+                    $('.moda').remove();
+                });
+            });
+        });
+    </script>
+
+</head>
+<body>
+<div th:replace="/navbar :: navbar">
+
+</div>
+<div class="container">
+    <div class="panel panel-primary">
+
+        <h3 class="panel-heading text-center">Your Voucher Create</h3>
+        <div class="well">
+            <a style="color: white;" class="panel-title btn btn-info" th:href="@{'/navbar/'+${companyId}+'/yourvoucherlists'}">Your Voucher List</a>
+            <a style="color: white;" class="panel-title btn btn-info" th:href="@{'/navbar/'+${companyId}+'/voucher/list'}">Voucher List</a>
+        </div>
+
+        <form th:action="${'/navbar/'+companyId+'/voucher/save'}" method="post" th:object="${voucher}" style="width: 500px; margin-left: 300px; margin-bottom: 50px;">
+            <input type="hidden" th:value="${companyId}" name="companyId">
+
+            <div class="form-group">
+                <label for="voucherName">Voucher Name:</label>
+                <input type="text" class="form-control" name="voucherName" id="voucherName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="devVoucher">Under:</label>
+                <select name="devVoucher" id="devVoucher" class="form-control" required>
+                    <option th:each="voucher : ${devVoucherList}" th:value="${voucher.v_id}" th:text="${voucher.voucherName}"></option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+</div>
+
+
+<script th:replace="/navbar :: script">
+
+</script>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<head th:replace="/navbar :: navbarhead">
+
+
+    <script>
+        $(document).ready(function(c) {
+            $('.alert').on('click', function(c){
+                $('.moda').fadeOut('slow', function(c){
+                    $('.moda').remove();
+                });
+            });
+        });
+    </script>
+
+</head>
+<body>
+
+<div th:replace="/navbar :: navbar">
+
+</div>
+<div class="container">
+    <div class="panel panel-primary">
+        <h3 class="panel-heading text-center">Ledger List</h3>
+        <div class="well">
+            <a style="color: white;" class="panel-title btn btn-info" th:href="@{'/navbar/'+${companyId}+'/ledger/createLedger'}">Create Ledger</a>
+            <input type="hidden" th:value="${companyId}" name="companyId">
+        </div>
+        <table class="table table-striped">
+
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ledger Name</th>
+                <th>Group Name</th>
+                <!--<th>Mailing Name</th>-->
+                <!--<th>Email</th>-->
+                <!--<th>Address</th>-->
+
+                <!--<th>Created By</th>-->
+                <!--<th>Username</th>-->
+                <!--<th>Created Time</th>-->
+                <th style="padding-left: 30px;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="userslist" type=""*/-->
+            <tr th:each="ledger: ${ledgerList}">
+                <td th:text="${ledger.getLedger_id()}"></td>
+                <td th:text="${ledger.getLedgerName()}"></td>
+                <td th:text="${ledger.getDevGroup().getGroupName()}"></td>
+                <!--<td th:text="${ledger.getMailing_name()}"></td>-->
+                <!--<td th:text="${ledger.getEmail()}"></td>-->
+                <!--<td th:text="${ledger.getAddress()}"></td>-->
+
+
+                <td>
+                    <a sec:authorize="hasAnyRole('ROLE_USER')" th:href="@{'/navbar/'+${companyId}+'/ledger/edit/' + ${ledger.getLedger_id()}}"  class="btn btn-info" type="button">Edit</a>
+                    <!--<a sec:authorize="hasAnyRole('ROLE_USER')" th:href="@{'/navbar/' + ${company.getCompany_id()}}" class="btn btn-info">Open</a>-->
+                    <a sec:authorize="hasAnyRole('ROLE_USER')" th:href="@{'/navbar/'+${companyId}+'/ledger/delete/' + ${ledger.getLedger_id()}}" class="btn btn-danger">Delete</a>
+                </td>
+                <td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script th:replace="/navbar :: script">
+
+</script>
+
+
+</body>
+</html>

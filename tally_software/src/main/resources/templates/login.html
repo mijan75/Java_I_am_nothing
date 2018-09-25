@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<!--layout:decorate="~{fragments/layout}">-->
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.css}"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+    <title>User Login</title>
+
+    <style>
+
+        button {
+            margin-left: 100px;
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+
+
+
+
+<div layout:fragment="content" th:remove="tag">
+    <div sec:authorize="!isAuthenticated()" class="container">
+        <div class="row">
+            <div class="col">
+
+            </div>
+            <div class="col">
+                <div id="loginform" class="card cardLogin border-secondary mb-3">
+                    <h3 class="title">User Login</h3>
+                    <i class="fas fa-sign-in-alt"></i>
+                    <form th:action="@{/login}" method="post">
+
+                        <div th:if="${param.error}">
+                            <div class="alert alert-danger" style="text-align: center">
+                                Invalid username or password.
+                            </div>
+                        </div>
+                        <div th:if="${param.logout}" style="text-align: center">
+                            <div class="alert alert-info">
+                                You have been logged out.
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Username</label>
+                            <span class="fas fa-envelope-open"></span>
+                            <input type="text" class="w3-input w3-border w3-round-large" id="username" name="username"   placeholder="Enter username" th:required="1">
+
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <span class="fas fa-key"></span>
+                            <input type="password" name="password" class="w3-input w3-border w3-round-large" id="password"  placeholder="Password" th:required="1">
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-primary">Login</button>
+                        <a th:href="@{/}" type="submit" class="btn btn-outline-dark">Back</a>
+                    </form>
+                    <a sec:authorize="!isAuthenticated()"  type="button" th:href="@{/forgot-password}" class="btn" style="float: right; margin-left: 350px; margin-top: 50px; color: #46b8da;">Forgot Password ?</a>
+                </div>
+
+                <!--<a th:href="@{/registration}" class="float-right">Create an account</a>-->
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/css/jquery.min.js}"/>
+<script th:src="@{/css/bootstrap.min.js}"/>
+
+<script th:src="@{/css/popper.min.js}"/>
+</body>
+</html>
